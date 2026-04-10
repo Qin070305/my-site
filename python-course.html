@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python基础课程 - 学习平台</title>
+    <title>Python基础课程 - 独立学习站点</title>
     <style>
         * {
             margin: 0;
@@ -147,6 +147,11 @@
             margin: 1.5rem 0 0.75rem;
         }
 
+        .chapter h4 {
+            color: #555;
+            margin: 1rem 0 0.5rem;
+        }
+
         .chapter p {
             margin-bottom: 1rem;
             color: #555;
@@ -236,10 +241,6 @@
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
 
-        .back-btn {
-            margin-bottom: 1.5rem;
-        }
-
         .progress-bar {
             width: 100%;
             height: 8px;
@@ -254,6 +255,25 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             width: 0%;
             transition: width 0.3s;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-top: 70px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
         }
 
         footer {
@@ -282,22 +302,31 @@
             .course-header h1 {
                 font-size: 1.5rem;
             }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
     <header>
         <nav>
-            <div class="logo">学习平台</div>
+            <div class="logo">Python 学习平台</div>
             <ul class="nav-links">
-                <li><a href="index.html">首页</a></li>
+                <li><a href="#">首页</a></li>
                 <li><a href="#">课程</a></li>
-                <li><a href="#">讲师</a></li>
-                <li><a href="#">关于我们</a></li>
-                <li><a href="#">联系我们</a></li>
+                <li><a href="#">资源</a></li>
+                <li><a href="#">关于</a></li>
             </ul>
         </nav>
     </header>
+
+    <section class="hero">
+        <h1>🐍 Python 基础课程</h1>
+        <p>掌握 Python 编程的核心基础知识，开启你的编程之旅</p>
+        <a href="#intro" class="btn btn-primary">开始学习</a>
+    </section>
 
     <div class="container">
         <aside class="sidebar">
@@ -320,10 +349,8 @@
         </aside>
 
         <main class="main-content">
-            <a href="index.html" class="btn btn-primary back-btn">← 返回首页</a>
-
             <div class="course-header">
-                <h1>🐍 Python 基础课程</h1>
+                <h1>Python 基础课程</h1>
                 <div class="course-meta">
                     <span>⏱️ 预计学习时间：20小时</span>
                     <span>👥 1250人已学习</span>
@@ -785,13 +812,13 @@ cat = Cat()
                     <li>文件操作与异常处理</li>
                 </ul>
                 <p style="margin-bottom: 1.5rem; color: #666;">现在你可以开始编写简单的 Python 程序，解决实际问题了！</p>
-                <a href="index.html" class="btn btn-primary">返回首页</a>
+                <a href="#intro" class="btn btn-primary">重新开始学习</a>
             </div>
         </main>
     </div>
 
     <footer>
-        <p>&copy; 2025 在线学习平台. 保留所有权利.</p>
+        <p>&copy; 2025 Python 学习平台. 保留所有权利.</p>
     </footer>
 
     <script>
