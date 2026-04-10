@@ -252,7 +252,7 @@
         .progress-fill {
             height: 100%;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            width: 30%;
+            width: 0%;
             transition: width 0.3s;
         }
 
@@ -304,18 +304,18 @@
             <h3>📚 课程目录</h3>
             <ul class="chapter-list">
                 <li><a href="#intro" class="active">第一章：Python 简介</a></li>
-                <li><a href="#variables">第二章：变量与数据类型</a></li>
-                <li><a href="#operators">第三章：运算符</a></li>
-                <li><a href="#control">第四章：控制流程</a></li>
-                <li><a href="#functions">第五章：函数</a></li>
-                <li><a href="#lists">第六章：列表与元组</a></li>
+                <li><a href="#syntax">第二章：编程语法基础</a></li>
+                <li><a href="#data-structures">第三章：数据结构</a></li>
+                <li><a href="#functions-modules">第四章：函数与模块</a></li>
+                <li><a href="#oop">第五章：面向对象编程</a></li>
+                <li><a href="#file-exception">第六章：文件操作与异常处理</a></li>
             </ul>
             <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee;">
                 <h4 style="margin-bottom: 0.5rem; color: #666;">学习进度</h4>
                 <div class="progress-bar">
                     <div class="progress-fill"></div>
                 </div>
-                <p style="text-align: center; color: #999; font-size: 0.85rem;">30% 完成</p>
+                <p style="text-align: center; color: #999; font-size: 0.85rem;">0% 完成</p>
             </div>
         </aside>
 
@@ -364,10 +364,10 @@ Hello, World!
                 </div>
             </section>
 
-            <section class="chapter" id="variables">
-                <h2>第二章：变量与数据类型</h2>
+            <section class="chapter" id="syntax">
+                <h2>第二章：编程语法基础</h2>
 
-                <h3>2.1 变量</h3>
+                <h3>2.1 变量与数据类型</h3>
                 <p>变量是存储数据的容器。在 Python 中，变量不需要声明类型。</p>
 
                 <div class="code-block">
@@ -387,28 +387,9 @@ is_student = <span class="keyword">True</span>
 <span class="function">print</span>(age)
                 </div>
 
-                <h3>2.2 数据类型</h3>
-                <p>Python 有几种基本数据类型：</p>
-
+                <h3>2.2 运算符</h3>
                 <div class="code-block">
-<span class="comment"># 使用 type() 函数查看类型</span>
-<span class="function">print</span>(<span class="function">type</span>(<span class="keyword">42</span>))          <span class="comment"># &lt;class 'int'&gt;</span>
-<span class="function">print</span>(<span class="function">type</span>(<span class="keyword">3.14</span>))        <span class="comment"># &lt;class 'float'&gt;</span>
-<span class="function">print</span>(<span class="function">type</span>(<span class="string">"Hello"</span>))     <span class="comment"># &lt;class 'str'&gt;</span>
-<span class="function">print</span>(<span class="function">type</span>(<span class="keyword">True</span>))        <span class="comment"># &lt;class 'bool'&gt;</span>
-                </div>
-
-                <div class="exercise">
-                    <h4>✏️ 练习 2</h4>
-                    <p>创建三个变量：你的姓名、年龄和最喜欢的颜色，然后打印它们。</p>
-                </div>
-            </section>
-
-            <section class="chapter" id="operators">
-                <h2>第三章：运算符</h2>
-
-                <h3>3.1 算术运算符</h3>
-                <div class="code-block">
+<span class="comment"># 算术运算符</span>
 a = <span class="keyword">10</span>
 b = <span class="keyword">3</span>
 
@@ -419,10 +400,8 @@ b = <span class="keyword">3</span>
 <span class="function">print</span>(a // b)  <span class="comment"># 3   整除</span>
 <span class="function">print</span>(a % b)   <span class="comment"># 1   取余</span>
 <span class="function">print</span>(a ** b)  <span class="comment"># 1000 幂运算</span>
-                </div>
 
-                <h3>3.2 比较运算符</h3>
-                <div class="code-block">
+<span class="comment"># 比较运算符</span>
 x = <span class="keyword">5</span>
 y = <span class="keyword">10</span>
 
@@ -430,30 +409,22 @@ y = <span class="keyword">10</span>
 <span class="function">print</span>(x != y)  <span class="comment"># True  不等于</span>
 <span class="function">print</span>(x &lt; y)   <span class="comment"># True  小于</span>
 <span class="function">print</span>(x &gt; y)   <span class="comment"># False 大于</span>
-<span class="function">print</span>(x &lt;= y)  <span class="comment"># True  小于等于</span>
-<span class="function">print</span>(x &gt;= y)  <span class="comment"># False 大于等于</span>
                 </div>
 
-                <div class="exercise">
-                    <h4>✏️ 练习 3</h4>
-                    <p>计算圆的面积：半径 r = 5，使用公式 area = π * r²（π ≈ 3.14159）</p>
-                </div>
-            </section>
-
-            <section class="chapter" id="control">
-                <h2>第四章：控制流程</h2>
-
-                <h3>4.1 if 语句</h3>
+                <h3>2.3 控制流程</h3>
+                <h4>2.3.1 if 语句</h4>
                 <div class="code-block">
 age = <span class="keyword">18</span>
 
 <span class="keyword">if</span> age &gt;= <span class="keyword">18</span>:
     <span class="function">print</span>(<span class="string">"你已经成年了"</span>)
+<span class="keyword">elif</span> age &gt;= <span class="keyword">12</span>:
+    <span class="function">print</span>(<span class="string">"你是青少年"</span>)
 <span class="keyword">else</span>:
-    <span class="function">print</span>(<span class="string">"你还未成年"</span>)
+    <span class="function">print</span>(<span class="string">"你还是儿童"</span>)
                 </div>
 
-                <h3>4.2 for 循环</h3>
+                <h4>2.3.2 for 循环</h4>
                 <div class="code-block">
 <span class="comment"># 遍历列表</span>
 fruits = [<span class="string">"苹果"</span>, <span class="string">"香蕉"</span>, <span class="string">"橙子"</span>]
@@ -461,11 +432,11 @@ fruits = [<span class="string">"苹果"</span>, <span class="string">"香蕉"</s
     <span class="function">print</span>(fruit)
 
 <span class="comment"># 使用 range()</span>
-<span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="keyword">5</span>):
-    <span class="function">print</span>(i)  <span class="comment"># 0, 1, 2, 3, 4</span>
+<span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="keyword">1</span>, <span class="keyword">6</span>):
+    <span class="function">print</span>(i)  <span class="comment"># 1, 2, 3, 4, 5</span>
                 </div>
 
-                <h3>4.3 while 循环</h3>
+                <h4>2.3.3 while 循环</h4>
                 <div class="code-block">
 count = <span class="keyword">1</span>
 <span class="keyword">while</span> count &lt;= <span class="keyword">5</span>:
@@ -474,41 +445,16 @@ count = <span class="keyword">1</span>
                 </div>
 
                 <div class="exercise">
-                    <h4>✏️ 练习 4</h4>
+                    <h4>✏️ 练习 2</h4>
                     <p>编写一个程序，打印 1 到 100 之间所有的偶数。</p>
                 </div>
             </section>
 
-            <section class="chapter" id="functions">
-                <h2>第五章：函数</h2>
+            <section class="chapter" id="data-structures">
+                <h2>第三章：数据结构</h2>
 
-                <h3>5.1 定义函数</h3>
-                <div class="code-block">
-<span class="keyword">def</span> <span class="function">greet</span>(name):
-    <span class="keyword">return</span> <span class="string">f"你好, {name}!"</span>
-
-<span class="function">print</span>(<span class="function">greet</span>(<span class="string">"张三"</span>))
-                </div>
-
-                <h3>5.2 带默认参数的函数</h3>
-                <div class="code-block">
-<span class="keyword">def</span> <span class="function">add</span>(a, b=<span class="keyword">0</span>):
-    <span class="keyword">return</span> a + b
-
-<span class="function">print</span>(<span class="function">add</span>(<span class="keyword">5</span>))      <span class="comment"># 5</span>
-<span class="function">print</span>(<span class="function">add</span>(<span class="keyword">5</span>, <span class="keyword">3</span>))   <span class="comment"># 8</span>
-                </div>
-
-                <div class="exercise">
-                    <h4>✏️ 练习 5</h4>
-                    <p>创建一个函数 calculate_area(width, height)，计算并返回矩形的面积。</p>
-                </div>
-            </section>
-
-            <section class="chapter" id="lists">
-                <h2>第六章：列表与元组</h2>
-
-                <h3>6.1 列表</h3>
+                <h3>3.1 列表 (List)</h3>
+                <p>列表是 Python 中最常用的数据结构之一，用于存储有序的元素集合。</p>
                 <div class="code-block">
 <span class="comment"># 创建列表</span>
 numbers = [<span class="keyword">1</span>, <span class="keyword">2</span>, <span class="keyword">3</span>, <span class="keyword">4</span>, <span class="keyword">5</span>]
@@ -516,18 +462,27 @@ fruits = [<span class="string">"苹果"</span>, <span class="string">"香蕉"</s
 
 <span class="comment"># 访问元素</span>
 <span class="function">print</span>(fruits[<span class="keyword">0</span>])  <span class="comment"># 苹果</span>
+<span class="function">print</span>(fruits[-<span class="keyword">1</span>]) <span class="comment"># 橙子 (倒数第一个)</span>
+
+<span class="comment"># 切片</span>
+<span class="function">print</span>(numbers[<span class="keyword">1</span>:<span class="keyword">4</span>])  <span class="comment"># [2, 3, 4]</span>
 
 <span class="comment"># 添加元素</span>
 fruits.append(<span class="string">"葡萄"</span>)
+fruits.insert(<span class="keyword">1</span>, <span class="string">"梨"</span>)
 
 <span class="comment"># 删除元素</span>
 fruits.remove(<span class="string">"香蕉"</span>)
+del fruits[<span class="keyword">0</span>]
 
-<span class="comment"># 列表长度</span>
-<span class="function">print</span>(<span class="function">len</span>(fruits))
+<span class="comment"># 列表方法</span>
+<span class="function">print</span>(<span class="function">len</span>(fruits))      <span class="comment"># 长度</span>
+<span class="function">print</span>(<span class="function">max</span>(numbers))     <span class="comment"># 最大值</span>
+<span class="function">print</span>(<span class="function">min</span>(numbers))     <span class="comment"># 最小值</span>
+<span class="function">print</span>(<span class="function">sum</span>(numbers))     <span class="comment"># 求和</span>
                 </div>
 
-                <h3>6.2 元组</h3>
+                <h3>3.2 元组 (Tuple)</h3>
                 <p>元组与列表类似，但元组是不可变的（不能修改）。</p>
                 <div class="code-block">
 <span class="comment"># 创建元组</span>
@@ -536,17 +491,299 @@ colors = (<span class="string">"红"</span>, <span class="string">"绿"</span>, 
 
 <span class="comment"># 访问元素</span>
 <span class="function">print</span>(coordinates[<span class="keyword">0</span>])  <span class="comment"># 10</span>
+
+<span class="comment"># 元组是不可变的，以下操作会报错</span>
+<span class="comment"># colors[0] = "黄"  # 错误！</span>
+                </div>
+
+                <h3>3.3 字典 (Dictionary)</h3>
+                <p>字典用于存储键值对，通过键来访问值。</p>
+                <div class="code-block">
+<span class="comment"># 创建字典</span>
+person = {
+    <span class="string">"name"</span>: <span class="string">"张三"</span>,
+    <span class="string">"age"</span>: <span class="keyword">25</span>,
+    <span class="string">"is_student"</span>: <span class="keyword">True</span>
+}
+
+<span class="comment"># 访问值</span>
+<span class="function">print</span>(person[<span class="string">"name"</span>])  <span class="comment"># 张三</span>
+
+<span class="comment"># 修改值</span>
+person[<span class="string">"age"</span>] = <span class="keyword">26</span>
+
+<span class="comment"># 添加新键值对</span>
+person[<span class="string">"city"</span>] = <span class="string">"北京"</span>
+
+<span class="comment"># 删除键值对</span>
+<span class="function">del</span> person[<span class="string">"is_student"</span>]
+
+<span class="comment"># 字典方法</span>
+<span class="function">print</span>(person.keys())    <span class="comment"># 所有键</span>
+<span class="function">print</span>(person.values())  <span class="comment"># 所有值</span>
+<span class="function">print</span>(person.items())  <span class="comment"># 所有键值对</span>
+                </div>
+
+                <h3>3.4 集合 (Set)</h3>
+                <p>集合用于存储唯一的元素，不允许重复。</p>
+                <div class="code-block">
+<span class="comment"># 创建集合</span>
+numbers = {<span class="keyword">1</span>, <span class="keyword">2</span>, <span class="keyword">3</span>, <span class="keyword">4</span>, <span class="keyword">5</span>}
+
+<span class="comment"># 添加元素</span>
+numbers.add(<span class="keyword">6</span>)
+
+<span class="comment"># 删除元素</span>
+numbers.remove(<span class="keyword">3</span>)
+
+<span class="comment"># 集合运算</span>
+s1 = {<span class="keyword">1</span>, <span class="keyword">2</span>, <span class="keyword">3</span>}
+s2 = {<span class="keyword">3</span>, <span class="keyword">4</span>, <span class="keyword">5</span>}
+
+<span class="function">print</span>(s1 | s2)  <span class="comment"># 并集 {1, 2, 3, 4, 5}</span>
+<span class="function">print</span>(s1 & s2)  <span class="comment"># 交集 {3}</span>
+<span class="function">print</span>(s1 - s2)  <span class="comment"># 差集 {1, 2}</span>
+                </div>
+
+                <div class="exercise">
+                    <h4>✏️ 练习 3</h4>
+                    <p>创建一个包含 5 个数字的列表，计算它们的平均值，然后将列表转换为集合去除重复元素。</p>
+                </div>
+            </section>
+
+            <section class="chapter" id="functions-modules">
+                <h2>第四章：函数与模块</h2>
+
+                <h3>4.1 函数定义与调用</h3>
+                <div class="code-block">
+<span class="keyword">def</span> <span class="function">greet</span>(name):
+    <span class="keyword">"""问候函数"""
+    <span class="keyword">return</span> <span class="string">f"你好, {name}!"</span>
+
+<span class="function">print</span>(<span class="function">greet</span>(<span class="string">"张三"</span>))
+                </div>
+
+                <h3>4.2 函数参数</h3>
+                <div class="code-block">
+<span class="comment"># 带默认参数的函数</span>
+<span class="keyword">def</span> <span class="function">add</span>(a, b=<span class="keyword">0</span>):
+    <span class="keyword">return</span> a + b
+
+<span class="function">print</span>(<span class="function">add</span>(<span class="keyword">5</span>))      <span class="comment"># 5</span>
+<span class="function">print</span>(<span class="function">add</span>(<span class="keyword">5</span>, <span class="keyword">3</span>))   <span class="comment"># 8</span>
+
+<span class="comment"># 关键字参数</span>
+<span class="function">print</span>(<span class="function">add</span>(b=<span class="keyword">10</span>, a=<span class="keyword">20</span>))  <span class="comment"># 30</span>
+
+<span class="comment"># 可变参数</span>
+<span class="keyword">def</span> <span class="function">sum_numbers</span>(*args):
+    <span class="keyword">return</span> <span class="function">sum</span>(args)
+
+<span class="function">print</span>(<span class="function">sum_numbers</span>(<span class="keyword">1</span>, <span class="keyword">2</span>, <span class="keyword">3</span>, <span class="keyword">4</span>))  <span class="comment"># 10</span>
+                </div>
+
+                <h3>4.3 模块</h3>
+                <p>模块是 Python 中组织代码的方式，一个 .py 文件就是一个模块。</p>
+                <div class="code-block">
+<span class="comment"># 导入模块</span>
+<span class="keyword">import</span> math
+
+<span class="function">print</span>(math.pi)          <span class="comment"># 3.141592653589793</span>
+<span class="function">print</span>(math.sqrt(<span class="keyword">16</span>))  <span class="comment"># 4.0</span>
+
+<span class="comment"># 导入模块中的特定函数</span>
+<span class="keyword">from</span> math <span class="keyword">import</span> pi, sqrt
+
+<span class="function">print</span>(pi)       <span class="comment"># 3.141592653589793</span>
+<span class="function">print</span>(<span class="function">sqrt</span>(<span class="keyword">25</span>))  <span class="comment"># 5.0</span>
+
+<span class="comment"># 导入所有函数</span>
+<span class="keyword">from</span> math <span class="keyword">import</span> *
+                </div>
+
+                <h3>4.4 包</h3>
+                <p>包是包含多个模块的目录，必须包含一个 __init__.py 文件。</p>
+                <div class="code-block">
+<span class="comment"># 导入包中的模块</span>
+<span class="comment"># import mypackage.mymodule</span>
+<span class="comment"># from mypackage import mymodule</span>
+                </div>
+
+                <div class="exercise">
+                    <h4>✏️ 练习 4</h4>
+                    <p>创建一个函数 calculate_area，根据传入的形状（'circle' 或 'rectangle'）和相应的参数计算面积。</p>
+                </div>
+            </section>
+
+            <section class="chapter" id="oop">
+                <h2>第五章：面向对象编程</h2>
+
+                <h3>5.1 类与对象</h3>
+                <p>类是对象的蓝图，对象是类的实例。</p>
+                <div class="code-block">
+<span class="keyword">class</span> <span class="function">Person</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, name, age):
+        self.name = name
+        self.age = age
+    
+    <span class="keyword">def</span> <span class="function">greet</span>(self):
+        <span class="keyword">return</span> <span class="string">f"你好，我是{self.name}，今年{self.age}岁。"</span>
+
+<span class="comment"># 创建对象</span>
+person1 = Person(<span class="string">"张三"</span>, <span class="keyword">25</span>)
+person2 = Person(<span class="string">"李四"</span>, <span class="keyword">30</span>)
+
+<span class="comment"># 访问属性</span>
+<span class="function">print</span>(person1.name)  <span class="comment"># 张三</span>
+
+<span class="comment"># 调用方法</span>
+<span class="function">print</span>(person1.greet())  <span class="comment"># 你好，我是张三，今年25岁。</span>
+                </div>
+
+                <h3>5.2 继承</h3>
+                <p>继承允许创建一个新类，继承现有类的属性和方法。</p>
+                <div class="code-block">
+<span class="keyword">class</span> <span class="function">Student</span>(Person):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, name, age, student_id):
+        <span class="function">super</span>().<span class="function">__init__</span>(name, age)
+        self.student_id = student_id
+    
+    <span class="keyword">def</span> <span class="function">study</span>(self):
+        <span class="keyword">return</span> <span class="string">f"{self.name}正在学习。"</span>
+
+<span class="comment"># 创建学生对象</span>
+student = Student(<span class="string">"王五"</span>, <span class="keyword">18</span>, <span class="string">"S12345"</span>)
+<span class="function">print</span>(student.greet())   <span class="comment"># 继承自Person的方法</span>
+<span class="function">print</span>(student.study())   <span class="comment"># Student自己的方法</span>
+                </div>
+
+                <h3>5.3 封装</h3>
+                <p>封装是将数据和方法包装在类中，通过访问控制保护数据。</p>
+                <div class="code-block">
+<span class="keyword">class</span> <span class="function">Account</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, balance):
+        self.__balance = balance  <span class="comment"># 私有属性</span>
+    
+    <span class="keyword">def</span> <span class="function">deposit</span>(self, amount):
+        <span class="keyword">if</span> amount &gt; <span class="keyword">0</span>:
+            self.__balance += amount
+            <span class="keyword">return</span> <span class="keyword">True</span>
+        <span class="keyword">return</span> <span class="keyword">False</span>
+    
+    <span class="keyword">def</span> <span class="function">get_balance</span>(self):
+        <span class="keyword">return</span> self.__balance
+
+<span class="comment"># 创建账户对象</span>
+account = Account(<span class="keyword">1000</span>)
+account.deposit(<span class="keyword">500</span>)
+<span class="function">print</span>(account.get_balance())  <span class="comment"># 1500</span>
+<span class="comment"># print(account.__balance)  # 错误！私有属性不能直接访问</span>
+                </div>
+
+                <h3>5.4 多态</h3>
+                <p>多态允许不同类的对象对相同的方法调用做出不同的响应。</p>
+                <div class="code-block">
+<span class="keyword">class</span> <span class="function">Animal</span>:
+    <span class="keyword">def</span> <span class="function">speak</span>(self):
+        <span class="keyword">pass</span>
+
+<span class="keyword">class</span> <span class="function">Dog</span>(Animal):
+    <span class="keyword">def</span> <span class="function">speak</span>(self):
+        <span class="keyword">return</span> <span class="string">"汪汪！"</span>
+
+<span class="keyword">class</span> <span class="function">Cat</span>(Animal):
+    <span class="keyword">def</span> <span class="function">speak</span>(self):
+        <span class="keyword">return</span> <span class="string">"喵喵！"</span>
+
+<span class="keyword">def</span> <span class="function">make_animal_speak</span>(animal):
+    <span class="function">print</span>(animal.speak())
+
+<span class="comment"># 多态示例</span>
+dog = Dog()
+cat = Cat()
+
+<span class="function">make_animal_speak</span>(dog)  <span class="comment"># 汪汪！</span>
+<span class="function">make_animal_speak</span>(cat)  <span class="comment"># 喵喵！</span>
+                </div>
+
+                <div class="exercise">
+                    <h4>✏️ 练习 5</h4>
+                    <p>创建一个形状类 Shape，然后创建子类 Circle 和 Rectangle，每个子类都有计算面积的方法。</p>
+                </div>
+            </section>
+
+            <section class="chapter" id="file-exception">
+                <h2>第六章：文件操作与异常处理</h2>
+
+                <h3>6.1 文件操作</h3>
+                <h4>6.1.1 读取文件</h4>
+                <div class="code-block">
+<span class="comment"># 读取整个文件</span>
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"example.txt"</span>, <span class="string">"r"</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:
+    content = f.read()
+    <span class="function">print</span>(content)
+
+<span class="comment"># 逐行读取</span>
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"example.txt"</span>, <span class="string">"r"</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:
+    <span class="keyword">for</span> line <span class="keyword">in</span> f:
+        <span class="function">print</span>(line.strip())
+                </div>
+
+                <h4>6.1.2 写入文件</h4>
+                <div class="code-block">
+<span class="comment"># 写入文件（覆盖）</span>
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"example.txt"</span>, <span class="string">"w"</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:
+    f.write(<span class="string">"Hello, Python!\n"</span>)
+    f.write(<span class="string">"这是一个测试文件。\n"</span>)
+
+<span class="comment"># 追加写入</span>
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"example.txt"</span>, <span class="string">"a"</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:
+    f.write(<span class="string">"追加的内容。\n"</span>)
+                </div>
+
+                <h3>6.2 异常处理</h3>
+                <p>异常处理用于捕获和处理程序运行时的错误。</p>
+                <div class="code-block">
+<span class="keyword">try</span>:
+    <span class="comment"># 可能会出错的代码</span>
+    num = <span class="keyword">int</span>(<span class="function">input</span>(<span class="string">"请输入一个数字："</span>))
+    result = <span class="keyword">10</span> / num
+    <span class="function">print</span>(<span class="string">"结果："</span>, result)
+<span class="keyword">except</span> ValueError:
+    <span class="function">print</span>(<span class="string">"请输入有效的数字！"</span>)
+<span class="keyword">except</span> ZeroDivisionError:
+    <span class="function">print</span>(<span class="string">"除数不能为零！"</span>)
+<span class="keyword">except</span> <span class="keyword">Exception</span> <span class="keyword">as</span> e:
+    <span class="function">print</span>(<span class="string">"发生错误："</span>, e)
+<span class="keyword">finally</span>:
+    <span class="function">print</span>(<span class="string">"程序执行完毕。"</span>)
+                </div>
+
+                <h3>6.3 上下文管理器</h3>
+                <p>上下文管理器用于管理资源，确保资源正确释放。</p>
+                <div class="code-block">
+<span class="comment"># 使用 with 语句管理文件资源</span>
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"example.txt"</span>, <span class="string">"r"</span>) <span class="keyword">as</span> f:
+    content = f.read()
+<span class="comment"># 文件会自动关闭，即使发生异常</span>
                 </div>
 
                 <div class="exercise">
                     <h4>✏️ 练习 6</h4>
-                    <p>创建一个包含 5 个数字的列表，计算它们的平均值。</p>
+                    <p>创建一个程序，读取一个文件，计算文件中的单词数量，然后将结果写入另一个文件。</p>
                 </div>
             </section>
 
             <div style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 2px solid #eee;">
                 <h3 style="margin-bottom: 1rem; color: #667eea;">🎉 恭喜完成 Python 基础课程！</h3>
-                <p style="margin-bottom: 1.5rem; color: #666;">你已经掌握了 Python 编程的基础知识，包括语法、数据类型、控制流程和函数等核心概念。</p>
+                <p style="margin-bottom: 1.5rem; color: #666;">你已经掌握了 Python 编程的核心基础知识，包括：</p>
+                <ul style="text-align: left; max-width: 600px; margin: 0 auto 1.5rem; color: #666;">
+                    <li>编程语法基础</li>
+                    <li>数据结构（列表、元组、字典、集合）</li>
+                    <li>函数与模块</li>
+                    <li>面向对象编程</li>
+                    <li>文件操作与异常处理</li>
+                </ul>
                 <p style="margin-bottom: 1.5rem; color: #666;">现在你可以开始编写简单的 Python 程序，解决实际问题了！</p>
                 <a href="index.html" class="btn btn-primary">返回首页</a>
             </div>
@@ -562,6 +799,9 @@ colors = (<span class="string">"红"</span>, <span class="string">"绿"</span>, 
             link.addEventListener('click', function(e) {
                 document.querySelectorAll('.chapter-list a').forEach(l => l.classList.remove('active'));
                 this.classList.add('active');
+                
+                // 更新进度
+                updateProgress();
             });
         });
 
@@ -575,6 +815,9 @@ colors = (<span class="string">"红"</span>, <span class="string">"绿"</span>, 
                             link.classList.add('active');
                         }
                     });
+                    
+                    // 更新进度
+                    updateProgress();
                 }
             });
         }, { threshold: 0.3 });
@@ -582,6 +825,15 @@ colors = (<span class="string">"红"</span>, <span class="string">"绿"</span>, 
         document.querySelectorAll('.chapter').forEach(chapter => {
             observer.observe(chapter);
         });
+
+        function updateProgress() {
+            const activeLinks = document.querySelectorAll('.chapter-list a.active');
+            const totalLinks = document.querySelectorAll('.chapter-list a').length;
+            const progress = (activeLinks.length / totalLinks) * 100;
+            
+            document.querySelector('.progress-fill').style.width = progress + '%';
+            document.querySelector('.progress-bar + p').textContent = Math.round(progress) + '% 完成';
+        }
     </script>
 </body>
 </html>
