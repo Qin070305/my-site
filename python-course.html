@@ -262,6 +262,25 @@
             transition: width 0.3s;
         }
 
+        .scene-card {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .scene-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .scene-card h4 {
+            color: #667eea;
+            margin-bottom: 0.75rem;
+        }
+
         footer {
             background: #333;
             color: white;
@@ -299,6 +318,91 @@
                 gap: 0.5rem;
             }
         }
+
+        /* 代码编辑器样式 */
+        .code-editor-container {
+            margin: 1rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .code-editor-header {
+            background: #f8f9fa;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .code-editor-header h5 {
+            margin: 0;
+            color: #495057;
+            font-size: 0.9rem;
+        }
+
+        .code-editor-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .code-run-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .code-run-btn:hover {
+            background: #218838;
+        }
+
+        .code-collapse-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .code-collapse-btn:hover {
+            background: #5a6268;
+        }
+
+        .code-editor {
+            width: 100%;
+            min-height: 200px;
+            background: #2d2d2d;
+            color: #f8f8f2;
+            border: none;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            resize: vertical;
+        }
+
+        .code-output {
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            min-height: 100px;
+        }
+
+        .code-output.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
     </style>
 </head>
 <body>
@@ -319,12 +423,12 @@
         <aside class="sidebar">
             <h3>📚 课程目录</h3>
             <ul class="chapter-list">
-                <li><a href="#intro" class="active">第一章：Python 简介</a></li>
-                <li><a href="#syntax">第二章：编程语法基础</a></li>
-                <li><a href="#data-structures">第三章：数据结构</a></li>
-                <li><a href="#functions-modules">第四章：函数与模块</a></li>
-                <li><a href="#oop">第五章：面向对象编程</a></li>
-                <li><a href="#file-exception">第六章：文件操作与异常处理</a></li>
+                <li><a href="#intro" class="active">第一章：Python 简介与编程语法</a></li>
+                <li><a href="#data-structures">第二章：数据结构与数据处理</a></li>
+                <li><a href="#functions-modules">第三章：函数与模块</a></li>
+                <li><a href="#file-exception">第四章：文件操作与异常处理</a></li>
+                <li><a href="#object-oriented">第五章：面向对象编程</a></li>
+                <li><a href="#application-scenarios">第六章：应用场景实践</a></li>
             </ul>
             <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee;">
                 <h4 style="margin-bottom: 0.5rem; color: #666;">学习进度</h4>
@@ -348,7 +452,7 @@
             </div>
 
             <section class="chapter" id="intro">
-                <h2>第一章：Python 简介</h2>
+                <h2>第一章：Python 简介与编程语法</h2>
                 
                 <h3>1.1 什么是 Python？</h3>
                 <p>Python 是一种高级、解释型、通用的编程语言。它的设计哲学强调代码的可读性，使用显著的缩进。Python 是动态类型和垃圾回收的。它支持多种编程范式，包括结构化（特别是过程式）、面向对象和函数式编程。</p>
@@ -357,450 +461,1457 @@
                     <strong>💡 提示：</strong> Python 由 Guido van Rossum 于 1991 年首次发布，名称来源于英国喜剧团体 Monty Python，而不是蛇。
                 </div>
 
-                <h3>1.2 安装 Python</h3>
-                <p>访问 <a href="https://www.python.org/downloads/" target="_blank" style="color: #667eea;">python.org</a> 下载并安装最新版本的 Python。</p>
+                <div class="scene-card">
+                    <h4>为什么选择 Python？</h4>
+                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                        <li>简单易学：语法简洁，代码可读性高</li>
+                        <li>生态丰富：拥有大量第三方库</li>
+                        <li>跨平台：可以在 Windows、macOS、Linux 等系统上运行</li>
+                        <li>社区活跃：有大量的学习资源和社区支持</li>
+                        <li>应用广泛：从 Web 开发到数据科学，从自动化到人工智能</li>
+                    </ul>
+                </div>
 
-                <h3>1.3 第一个 Python 程序</h3>
-                <p>让我们来编写经典的 "Hello, World!" 程序：</p>
-                
+                <h3>1.2 Python 的应用场景</h3>
+                <div class="scene-card">
+                    <h4>数据科学与人工智能</h4>
+                    <p>Python 在数据分析、机器学习、深度学习等领域广泛应用，拥有丰富的库生态，如 NumPy、Pandas、TensorFlow、PyTorch 等。</p>
+                </div>
+                <div class="scene-card">
+                    <h4>Web 开发</h4>
+                    <p>使用 Django、Flask 等框架快速构建网站和 API，开发效率高，代码维护性好。</p>
+                </div>
+                <div class="scene-card">
+                    <h4>自动化脚本</h4>
+                    <p>编写脚本自动化日常任务，如文件处理、数据抓取、系统管理等，提高工作效率。</p>
+                </div>
+                <div class="scene-card">
+                    <h4>游戏开发</h4>
+                    <p>使用 Pygame 等库开发简单的游戏，或者使用 Unity 配合 Python 开发更复杂的游戏。</p>
+                </div>
+                <div class="scene-card">
+                    <h4>科学计算</h4>
+                    <p>在物理、化学、生物等领域进行数值模拟和科学计算，如使用 SciPy、Matplotlib 等库。</p>
+                </div>
+
+                <h3>1.3 安装 Python</h3>
+                <h4>1.3.1 Windows 系统安装</h4>
+                <ol style="margin: 1rem 0 1rem 1.5rem;">
+                    <li>访问 <a href="https://www.python.org/downloads/" target="_blank" style="color: #667eea;">python.org</a> 下载最新版本的 Python 安装包</li>
+                    <li>运行安装包，勾选 "Add Python to PATH" 选项</li>
+                    <li>点击 "Install Now" 进行安装</li>
+                    <li>安装完成后，打开命令提示符，输入 <code>python --version</code> 验证安装成功</li>
+                </ol>
+
+                <h4>1.3.2 macOS 系统安装</h4>
+                <ol style="margin: 1rem 0 1rem 1.5rem;">
+                    <li>访问 <a href="https://www.python.org/downloads/" target="_blank" style="color: #667eea;">python.org</a> 下载最新版本的 Python 安装包</li>
+                    <li>运行安装包，按照提示完成安装</li>
+                    <li>安装完成后，打开终端，输入 <code>python3 --version</code> 验证安装成功</li>
+                </ol>
+
+                <h4>1.3.3 Linux 系统安装</h4>
+                <p>大多数 Linux 发行版已经预装了 Python，可以通过以下命令检查：</p>
+                <div class="code-block">
+<span class="function">python3</span> --version
+                </div>
+                <p>如果没有安装，可以使用包管理器安装：</p>
+                <div class="code-block">
+<span class="comment"># Ubuntu/Debian</span>
+<span class="function">sudo</span> apt update
+<span class="function">sudo</span> apt install python3 python3-pip
+
+<span class="comment"># CentOS/RHEL</span>
+<span class="function">sudo</span> yum install python3 python3-pip
+                </div>
+
+                <h3>1.4 第一个 Python 程序</h3>
+                <h4>1.4.1 使用 Python 交互式环境</h4>
+                <p>打开命令提示符或终端，输入 <code>python</code> 或 <code>python3</code> 进入 Python 交互式环境：</p>
+                <div class="code-block">
+<span class="comment"># 进入 Python 交互式环境</span>
+<span class="function">python3</span>
+
+<span class="comment"># 输入以下代码并按回车</span>
+<span class="function">print</span>(<span class="string">"Hello, World!"</span>)
+
+<span class="comment"># 退出交互式环境</span>
+<span class="function">exit</span>()
+                </div>
+
+                <h4>1.4.2 使用文本编辑器</h4>
+                <p>创建一个名为 <code>hello.py</code> 的文件，写入以下代码：</p>
                 <div class="code-block">
 <span class="comment"># 这是一个注释</span>
 <span class="function">print</span>(<span class="string">"Hello, World!"</span>)
                 </div>
-
+                <p>然后在命令提示符或终端中运行：</p>
+                <div class="code-block">
+<span class="function">python3</span> hello.py
+                </div>
                 <p>运行这个程序，你会看到输出：</p>
-                
                 <div class="output-block">
 Hello, World!
                 </div>
 
-                <div class="exercise">
-                    <h4>✏️ 练习 1</h4>
-                    <p>尝试修改上面的代码，让它输出你的名字。</p>
-                </div>
-            </section>
-
-            <section class="chapter" id="syntax">
-                <h2>第二章：编程语法基础</h2>
-
-                <h3>2.1 变量与数据类型</h3>
-                <p>变量是存储数据的容器。在 Python 中，变量不需要声明类型。</p>
-
+                <h3>1.5 基本编程语法</h3>
+                
+                <h4>1.5.1 变量与赋值</h4>
+                <p>变量是用来存储数据的容器，在 Python 中，变量不需要声明类型，直接赋值即可：</p>
                 <div class="code-block">
-<span class="comment"># 整数</span>
-age = <span class="keyword">25</span>
+<span class="comment"># 变量赋值</span>
+name = <span class="string">"张三"</span>    <span class="comment"># 字符串变量</span>
+age = <span class="keyword">20</span>         <span class="comment"># 整数变量</span>
+height = <span class="keyword">1.75</span>      <span class="comment"># 浮点数变量</span>
+is_student = <span class="keyword">True</span>   <span class="comment"># 布尔变量</span>
 
-<span class="comment"># 浮点数</span>
-price = <span class="keyword">19.99</span>
+<span class="comment"># 打印变量</span>
+<span class="function">print</span>(name, age, height, is_student)
 
-<span class="comment"># 字符串</span>
-name = <span class="string">"张三"</span>
-
-<span class="comment"># 布尔值</span>
-is_student = <span class="keyword">True</span>
-
-<span class="function">print</span>(name)
-<span class="function">print</span>(age)
+<span class="comment"># 变量重新赋值</span>
+age = <span class="keyword">21</span>  <span class="comment"># 可以改变变量的值和类型</span>
+<span class="function">print</span>(<span class="string">"更新后的年龄："</span>, age)
                 </div>
 
-                <h3>2.2 运算符</h3>
+                <h4>1.5.2 基本运算符</h4>
+                <h5>算术运算符</h5>
                 <div class="code-block">
 <span class="comment"># 算术运算符</span>
-a = <span class="keyword">10</span>
-b = <span class="keyword">3</span>
+<span class="function">print</span>(<span class="keyword">10</span> + <span class="keyword">5</span>)   <span class="comment"># 加法，结果：15</span>
+<span class="function">print</span>(<span class="keyword">10</span> - <span class="keyword">5</span>)   <span class="comment"># 减法，结果：5</span>
+<span class="function">print</span>(<span class="keyword">10</span> * <span class="keyword">5</span>)   <span class="comment"># 乘法，结果：50</span>
+<span class="function">print</span>(<span class="keyword">10</span> / <span class="keyword">5</span>)   <span class="comment"># 除法，结果：2.0</span>
+<span class="function">print</span>(<span class="keyword">10</span> % <span class="keyword">3</span>)   <span class="comment"># 取模，结果：1</span>
+<span class="function">print</span>(<span class="keyword">10</span> // <span class="keyword">3</span>)  <span class="comment"># 地板除，结果：3</span>
+<span class="function">print</span>(<span class="keyword">2</span> ** <span class="keyword">3</span>)  <span class="comment"># 幂运算，结果：8</span>
+                </div>
 
-<span class="function">print</span>(a + b)   <span class="comment"># 13  加法</span>
-<span class="function">print</span>(a - b)   <span class="comment"># 7   减法</span>
-<span class="function">print</span>(a * b)   <span class="comment"># 30  乘法</span>
-<span class="function">print</span>(a / b)   <span class="comment"># 3.333... 除法</span>
-<span class="function">print</span>(a // b)  <span class="comment"># 3   整除</span>
-<span class="function">print</span>(a % b)   <span class="comment"># 1   取余</span>
-<span class="function">print</span>(a ** b)  <span class="comment"># 1000 幂运算</span>
-
+                <h5>比较运算符</h5>
+                <div class="code-block">
 <span class="comment"># 比较运算符</span>
-x = <span class="keyword">5</span>
-y = <span class="keyword">10</span>
-
-<span class="function">print</span>(x == y)  <span class="comment"># False 等于</span>
-<span class="function">print</span>(x != y)  <span class="comment"># True  不等于</span>
-<span class="function">print</span>(x &lt; y)   <span class="comment"># True  小于</span>
-<span class="function">print</span>(x &gt; y)   <span class="comment"># False 大于</span>
+<span class="function">print</span>(<span class="keyword">10</span> > <span class="keyword">5</span>)    <span class="comment"># 大于，结果：True</span>
+<span class="function">print</span>(<span class="keyword">10</span> < <span class="keyword">5</span>)    <span class="comment"># 小于，结果：False</span>
+<span class="function">print</span>(<span class="keyword">10</span> == <span class="keyword">10</span>)  <span class="comment"># 等于，结果：True</span>
+<span class="function">print</span>(<span class="keyword">10</span> != <span class="keyword">5</span>)   <span class="comment"># 不等于，结果：True</span>
+<span class="function">print</span>(<span class="keyword">10</span> >= <span class="keyword">10</span>) <span class="comment"># 大于等于，结果：True</span>
+<span class="function">print</span>(<span class="keyword">10</span> <= <span class="keyword">5</span>)  <span class="comment"># 小于等于，结果：False</span>
                 </div>
 
-                <h3>2.3 控制流程</h3>
-                <h4>2.3.1 if 语句</h4>
+                <h5>逻辑运算符</h5>
                 <div class="code-block">
+<span class="comment"># 逻辑运算符</span>
+<span class="function">print</span>(<span class="keyword">True</span> <span class="keyword">and</span> <span class="keyword">False</span>)  <span class="comment"># 与，结果：False</span>
+<span class="function">print</span>(<span class="keyword">True</span> <span class="keyword">or</span> <span class="keyword">False</span>)   <span class="comment"># 或，结果：True</span>
+<span class="function">print</span>(<span class="keyword">not</span> <span class="keyword">True</span>)       <span class="comment"># 非，结果：False</span>
+                </div>
+
+                <h4>1.5.3 控制流</h4>
+                <h5>if 语句</h5>
+                <div class="code-block">
+<span class="comment"># if 语句</span>
 age = <span class="keyword">18</span>
-
-<span class="keyword">if</span> age &gt;= <span class="keyword">18</span>:
-    <span class="function">print</span>(<span class="string">"你已经成年了"</span>)
-<span class="keyword">elif</span> age &gt;= <span class="keyword">12</span>:
-    <span class="function">print</span>(<span class="string">"你是青少年"</span>)
+<span class="keyword">if</span> age >= <span class="keyword">18</span>:
+    <span class="function">print</span>(<span class="string">"成年人"</span>)
 <span class="keyword">else</span>:
-    <span class="function">print</span>(<span class="string">"你还是儿童"</span>)
+    <span class="function">print</span>(<span class="string">"未成年人"</span>)
+
+<span class="comment"># 多条件 if 语句</span>
+score = <span class="keyword">85</span>
+<span class="keyword">if</span> score >= <span class="keyword">90</span>:
+    <span class="function">print</span>(<span class="string">"优秀"</span>)
+<span class="keyword">elif</span> score >= <span class="keyword">80</span>:
+    <span class="function">print</span>(<span class="string">"良好"</span>)
+<span class="keyword">elif</span> score >= <span class="keyword">60</span>:
+    <span class="function">print</span>(<span class="string">"及格"</span>)
+<span class="keyword">else</span>:
+    <span class="function">print</span>(<span class="string">"不及格"</span>)
                 </div>
 
-                <h4>2.3.2 for 循环</h4>
+                <h5>for 循环</h5>
                 <div class="code-block">
+<span class="comment"># for 循环</span>
+<span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="keyword">5</span>):
+    <span class="function">print</span>(i)  <span class="comment"># 输出：0, 1, 2, 3, 4</span>
+
 <span class="comment"># 遍历列表</span>
 fruits = [<span class="string">"苹果"</span>, <span class="string">"香蕉"</span>, <span class="string">"橙子"</span>]
 <span class="keyword">for</span> fruit <span class="keyword">in</span> fruits:
     <span class="function">print</span>(fruit)
-
-<span class="comment"># 使用 range()</span>
-<span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="keyword">1</span>, <span class="keyword">6</span>):
-    <span class="function">print</span>(i)  <span class="comment"># 1, 2, 3, 4, 5</span>
                 </div>
 
-                <h4>2.3.3 while 循环</h4>
+                <h5>while 循环</h5>
                 <div class="code-block">
-count = <span class="keyword">1</span>
-<span class="keyword">while</span> count &lt;= <span class="keyword">5</span>:
-    <span class="function">print</span>(<span class="string">"计数:"</span>, count)
-    count += <span class="keyword">1</span>
+<span class="comment"># while 循环</span>
+i = <span class="keyword">0</span>
+<span class="keyword">while</span> i < <span class="keyword">5</span>:
+    <span class="function">print</span>(i)
+    i += <span class="keyword">1</span>  <span class="comment"># 不要忘记更新循环变量，否则会无限循环</span>
+
+<span class="comment"># 带有条件的 while 循环</span>
+sum = <span class="keyword">0</span>
+n = <span class="keyword">1</span>
+<span class="keyword">while</span> sum < <span class="keyword">100</span>:
+    sum += n
+    n += <span class="keyword">1</span>
+<span class="function">print</span>(<span class="string">"累加和超过 100 时的 n 值："</span>, n)
+                </div>
+
+                <h4>1.5.4 输入与输出</h4>
+                <div class="code-block">
+<span class="comment"># 输入</span>
+name = <span class="function">input</span>(<span class="string">"请输入你的名字："</span>)
+<span class="function">print</span>(<span class="string">"你好，"</span>, name)
+
+<span class="comment"># 输入数字</span>
+age = <span class="function">int</span>(<span class="function">input</span>(<span class="string">"请输入你的年龄："</span>))
+<span class="function">print</span>(<span class="string">"你明年将满"</span>, age + <span class="keyword">1</span>, <span class="string">"岁"</span>)
+
+<span class="comment"># 格式化输出</span>
+<span class="function">print</span>(<span class="string">f"{name}，你今年 {age} 岁"</span>)
+<span class="function">print</span>(<span class="string">"{}，你今年 {} 岁"</span>.format(name, age))
                 </div>
 
                 <div class="exercise">
-                    <h4>✏️ 练习 2</h4>
-                    <p>编写一个程序，打印 1 到 100 之间所有的偶数。</p>
+                    <h4>✏️ 练习 1.1</h4>
+                    <p>编写一个程序，提示用户输入姓名、年龄和身高，然后输出一个问候信息，例如："你好，张三！你今年 20 岁，身高 1.75 米。"</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>✏️ 练习 1.2</h4>
+                    <p>编写一个程序，输入一个数字，判断它是正数、负数还是零。</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>✏️ 练习 1.3</h4>
+                    <p>编写一个程序，使用循环计算 1 到 100 的和。</p>
+                </div>
+
+                <h3>1.6 学习建议</h3>
+                <div class="scene-card">
+                    <h4>初学者学习路径</h4>
+                    <ol style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                        <li>熟悉基本语法和数据类型</li>
+                        <li>学习控制流和函数</li>
+                        <li>掌握数据结构（列表、字典等）</li>
+                        <li>学习文件操作和异常处理</li>
+                        <li>了解面向对象编程</li>
+                        <li>通过实际项目练习编程技能</li>
+                    </ol>
+                </div>
+
+                <div class="note">
+                    <strong>💡 提示：</strong> 学习编程最重要的是实践！建议每天至少花 30 分钟编写代码，尝试解决实际问题。
+                </div>
+
+                <h3>1.7 常见问题与解决方案</h3>
+                <div class="scene-card">
+                    <h4>Q: 安装 Python 后，在命令行中输入 python 提示 "命令未找到"</h4>
+                    <p>A: 这通常是因为 Python 没有添加到系统 PATH 环境变量中。重新运行安装程序，确保勾选 "Add Python to PATH" 选项。</p>
+                </div>
+                <div class="scene-card">
+                    <h4>Q: 运行 Python 程序时出现语法错误</h4>
+                    <p>A: 检查代码的缩进是否正确，Python 对缩进非常严格。确保使用一致的缩进风格（空格或制表符）。</p>
+                </div>
+                <div class="scene-card">
+                    <h4>Q: 如何查看 Python 版本？</h4>
+                    <p>A: 在命令行中输入 <code>python --version</code> 或 <code>python3 --version</code>。</p>
                 </div>
             </section>
 
             <section class="chapter" id="data-structures">
-                <h2>第三章：数据结构</h2>
+                <h2>第二章：数据结构与数据处理</h2>
 
-                <h3>3.1 列表 (List)</h3>
-                <p>列表是 Python 中最常用的数据结构之一，用于存储有序的元素集合。</p>
+                <h3>2.1 基本数据类型</h3>
+                <p>在数据处理中，我们需要处理各种类型的数据。Python 提供了多种内置数据类型：</p>
+
+                <h4>2.1.1 数值类型</h4>
+                <div class="code-block">
+<span class="comment"># 整数 (int) - 用于计数</span>
+user_count = <span class="keyword">100</span>
+age = <span class="keyword">25</span>
+
+<span class="comment"># 浮点数 (float) - 用于小数</span>
+temperature = <span class="keyword">25.5</span>
+height = <span class="keyword">1.75</span>
+
+<span class="comment"># 复数 (complex) - 用于复数运算</span>
+complex_num = <span class="keyword">3</span> + <span class="keyword">4j</span>
+
+<span class="function">print</span>(user_count, temperature, complex_num)
+                </div>
+
+                <h4>2.1.2 字符串类型</h4>
+                <p>字符串是用于表示文本的数据类型，可以使用单引号、双引号或三引号来定义：</p>
+                <div class="code-block">
+<span class="comment"># 字符串定义</span>
+name = <span class="string">"张三"</span>
+message = <span class="string">'Hello, Python!'"</span>
+multiline_string = <span class="string">"""
+这是一个
+多行字符串
+"""
+
+<span class="comment"># 字符串操作</span>
+<span class="function">print</span>(name + <span class="string">"你好"</span>)  <span class="comment"># 字符串拼接</span>
+<span class="function">print</span>(message * <span class="keyword">3</span>)  <span class="comment"># 字符串重复</span>
+<span class="function">print</span>(<span class="string">"Hello"</span> [<span class="keyword">0</span>])  <span class="comment"># 访问单个字符</span>
+<span class="function">print</span>(<span class="string">"Hello"</span> [<span class="keyword">1</span>:<span class="keyword">4</span>])  <span class="comment"># 切片操作</span>
+                </div>
+
+                <h4>2.1.3 布尔类型</h4>
+                <p>布尔类型只有两个值：True（真）和 False（假），用于逻辑判断：</p>
+                <div class="code-block">
+<span class="comment"># 布尔值</span>
+is_student = <span class="keyword">True</span>
+is_adult = <span class="keyword">False</span>
+
+<span class="comment"># 布尔运算</span>
+<span class="function">print</span>(<span class="keyword">True</span> <span class="keyword">and</span> <span class="keyword">False</span>)  <span class="comment"># 与运算</span>
+<span class="function">print</span>(<span class="keyword">True</span> <span class="keyword">or</span> <span class="keyword">False</span>)   <span class="comment"># 或运算</span>
+<span class="function">print</span>(<span class="keyword">not</span> <span class="keyword">True</span>)       <span class="comment"># 非运算</span>
+                </div>
+
+                <h3>2.2 数据结构</h3>
+                <p>数据结构是用于组织和存储数据的方式，Python 提供了多种内置数据结构：</p>
+
+                <h4>2.2.1 列表 (List)</h4>
+                <p>列表是一种有序、可变的数据结构，用于存储多个元素：</p>
                 <div class="code-block">
 <span class="comment"># 创建列表</span>
-numbers = [<span class="keyword">1</span>, <span class="keyword">2</span>, <span class="keyword">3</span>, <span class="keyword">4</span>, <span class="keyword">5</span>]
-fruits = [<span class="string">"苹果"</span>, <span class="string">"香蕉"</span>, <span class="string">"橙子"</span>]
+age_list = [<span class="keyword">18</span>, <span class="keyword">25</span>, <span class="keyword">30</span>, <span class="keyword">22</span>, <span class="keyword">19</span>]
+product_list = [<span class="string">"手机"</span>, <span class="string">"电脑"</span>, <span class="string">"平板"</span>]
+mixed_list = [<span class="keyword">10</span>, <span class="string">"Hello"</span>, <span class="keyword">True</span>, <span class="keyword">3.14</span>]
 
 <span class="comment"># 访问元素</span>
-<span class="function">print</span>(fruits[<span class="keyword">0</span>])  <span class="comment"># 苹果</span>
-<span class="function">print</span>(fruits[-<span class="keyword">1</span>]) <span class="comment"># 橙子 (倒数第一个)</span>
+<span class="function">print</span>(age_list[<span class="keyword">0</span>])      <span class="comment"># 第一个元素</span>
+<span class="function">print</span>(age_list[<span class="keyword">-1</span>])     <span class="comment"># 最后一个元素</span>
+<span class="function">print</span>(age_list[<span class="keyword">1</span>:<span class="keyword">4</span>])   <span class="comment"># 切片操作</span>
 
-<span class="comment"># 切片</span>
-<span class="function">print</span>(numbers[<span class="keyword">1</span>:<span class="keyword">4</span>])  <span class="comment"># [2, 3, 4]</span>
+<span class="comment"># 列表操作</span>
+age_list.append(<span class="keyword">21</span>)        <span class="comment"># 添加元素到末尾</span>
+age_list.insert(<span class="keyword">0</span>, <span class="keyword">17</span>)     <span class="comment"># 在指定位置插入元素</span>
+age_list.remove(<span class="keyword">30</span>)         <span class="comment"># 删除指定元素</span>
+popped = age_list.pop()           <span class="comment"># 弹出末尾元素</span>
+age_list.sort()                   <span class="comment"># 排序</span>
+age_list.reverse()                <span class="comment"># 反转</span>
 
-<span class="comment"># 添加元素</span>
-fruits.append(<span class="string">"葡萄"</span>)
-fruits.insert(<span class="keyword">1</span>, <span class="string">"梨"</span>)
-
-<span class="comment"># 删除元素</span>
-fruits.remove(<span class="string">"香蕉"</span>)
-del fruits[<span class="keyword">0</span>]
-
-<span class="comment"># 列表方法</span>
-<span class="function">print</span>(<span class="function">len</span>(fruits))      <span class="comment"># 长度</span>
-<span class="function">print</span>(<span class="function">max</span>(numbers))     <span class="comment"># 最大值</span>
-<span class="function">print</span>(<span class="function">min</span>(numbers))     <span class="comment"># 最小值</span>
-<span class="function">print</span>(<span class="function">sum</span>(numbers))     <span class="comment"># 求和</span>
+<span class="function">print</span>(age_list)
+<span class="function">print</span>(<span class="string">"弹出的元素："</span>, popped)
                 </div>
 
-                <h3>3.2 元组 (Tuple)</h3>
-                <p>元组与列表类似，但元组是不可变的（不能修改）。</p>
-                <div class="code-block">
-<span class="comment"># 创建元组</span>
-coordinates = (<span class="keyword">10</span>, <span class="keyword">20</span>)
-colors = (<span class="string">"红"</span>, <span class="string">"绿"</span>, <span class="string">"蓝"</span>)
-
-<span class="comment"># 访问元素</span>
-<span class="function">print</span>(coordinates[<span class="keyword">0</span>])  <span class="comment"># 10</span>
-
-<span class="comment"># 元组是不可变的，以下操作会报错</span>
-<span class="comment"># colors[0] = "黄"  # 错误！</span>
-                </div>
-
-                <h3>3.3 字典 (Dictionary)</h3>
-                <p>字典用于存储键值对，通过键来访问值。</p>
+                <h4>2.2.2 字典 (Dictionary)</h4>
+                <p>字典是一种无序、可变的数据结构，用于存储键值对：</p>
                 <div class="code-block">
 <span class="comment"># 创建字典</span>
-person = {
-    <span class="string">"name"</span>: <span class="string">"张三"</span>,
-    <span class="string">"age"</span>: <span class="keyword">25</span>,
-    <span class="string">"is_student"</span>: <span class="keyword">True</span>
+user_info = {
+    <span class="string">"name"</span>: <span class="string">"李四"</span>,
+    <span class="string">"age"</span>: <span class="keyword">28</span>,
+    <span class="string">"email"</span>: <span class="string">"lisi@example.com"</span>,
+    <span class="string">"is_member"</span>: <span class="keyword">True</span>
 }
 
-<span class="comment"># 访问值</span>
-<span class="function">print</span>(person[<span class="string">"name"</span>])  <span class="comment"># 张三</span>
+<span class="comment"># 访问数据</span>
+<span class="function">print</span>(user_info[<span class="string">"name"</span>])  <span class="comment"># 通过键访问值</span>
+<span class="function">print</span>(user_info.get(<span class="string">"age"</span>))  <span class="comment"># 使用 get 方法访问</span>
 
-<span class="comment"># 修改值</span>
-person[<span class="string">"age"</span>] = <span class="keyword">26</span>
+<span class="comment"># 更新数据</span>
+user_info[<span class="string">"age"</span>] = <span class="keyword">29</span>        <span class="comment"># 更新现有键的值</span>
+user_info[<span class="string">"city"</span>] = <span class="string">"北京"</span>    <span class="comment"># 添加新的键值对</span>
 
-<span class="comment"># 添加新键值对</span>
-person[<span class="string">"city"</span>] = <span class="string">"北京"</span>
+<span class="comment"># 删除数据</span>
+del user_info[<span class="string">"is_member"</span>]  <span class="comment"># 删除指定键值对</span>
+popped_value = user_info.pop(<span class="string">"email"</span>)  <span class="comment"># 弹出指定键的值</span>
 
-<span class="comment"># 删除键值对</span>
-<span class="function">del</span> person[<span class="string">"is_student"</span>]
+<span class="comment"># 遍历字典</span>
+<span class="function">print</span>(<span class="string">"键："</span>, user_info.keys())
+<span class="function">print</span>(<span class="string">"值："</span>, user_info.values())
+<span class="function">print</span>(<span class="string">"键值对："</span>, user_info.items())
 
-<span class="comment"># 字典方法</span>
-<span class="function">print</span>(person.keys())    <span class="comment"># 所有键</span>
-<span class="function">print</span>(person.values())  <span class="comment"># 所有值</span>
-<span class="function">print</span>(person.items())  <span class="comment"># 所有键值对</span>
+<span class="keyword">for</span> key, value <span class="keyword">in</span> user_info.items():
+    <span class="function">print</span>(key, <span class="string">":"</span>, value)
                 </div>
 
-                <h3>3.4 集合 (Set)</h3>
-                <p>集合用于存储唯一的元素，不允许重复。</p>
+                <h4>2.2.3 元组 (Tuple)</h4>
+                <p>元组是一种有序、不可变的数据结构，用于存储多个元素：</p>
+                <div class="code-block">
+<span class="comment"># 创建元组</span>
+coordinates = (<span class="keyword">10</span>, <span class="keyword">20</span>, <span class="keyword">30</span>)
+person = (<span class="string">"张三"</span>, <span class="keyword">25</span>, <span class="string">"北京"</span>)
+single_element = (<span class="keyword">42</span>,)  <span class="comment"># 单个元素的元组，需要加逗号</span>
+
+<span class="comment"># 访问元素</span>
+<span class="function">print</span>(coordinates[<span class="keyword">0</span>])
+<span class="function">print</span>(person[<span class="keyword">1</span>])
+
+<span class="comment"># 元组不可修改</span>
+<span class="comment"># coordinates[0] = 50  # 会报错</span>
+
+<span class="comment"># 元组操作</span>
+combined = coordinates + person  <span class="comment"># 元组拼接</span>
+repeated = person * <span class="keyword">2</span>        <span class="comment"># 元组重复</span>
+
+<span class="function">print</span>(combined)
+<span class="function">print</span>(repeated)
+                </div>
+
+                <h4>2.2.4 集合 (Set)</h4>
+                <p>集合是一种无序、不可重复的数据结构，用于存储唯一的元素：</p>
                 <div class="code-block">
 <span class="comment"># 创建集合</span>
-numbers = {<span class="keyword">1</span>, <span class="keyword">2</span>, <span class="keyword">3</span>, <span class="keyword">4</span>, <span class="keyword">5</span>}
+unique_numbers = {<span class="keyword">1</span>, <span class="keyword">2</span>, <span class="keyword">3</span>, <span class="keyword">3</span>, <span class="keyword">4</span>}  <span class="comment"># 自动去重</span>
+another_set = <span class="function">set</span>([<span class="keyword">4</span>, <span class="keyword">5</span>, <span class="keyword">6</span>, <span class="keyword">6</span>])
 
-<span class="comment"># 添加元素</span>
-numbers.add(<span class="keyword">6</span>)
+<span class="function">print</span>(unique_numbers)
+<span class="function">print</span>(another_set)
 
-<span class="comment"># 删除元素</span>
-numbers.remove(<span class="keyword">3</span>)
+<span class="comment"># 集合操作</span>
+set1 = {<span class="keyword">1</span>, <span class="keyword">2</span>, <span class="keyword">3</span>}
+set2 = {<span class="keyword">2</span>, <span class="keyword">3</span>, <span class="keyword">4</span>}
 
-<span class="comment"># 集合运算</span>
-s1 = {<span class="keyword">1</span>, <span class="keyword">2</span>, <span class="keyword">3</span>}
-s2 = {<span class="keyword">3</span>, <span class="keyword">4</span>, <span class="keyword">5</span>}
+<span class="function">print</span>(<span class="string">"并集："</span>, set1 | set2)  <span class="comment"># 并集</span>
+<span class="function">print</span>(<span class="string">"交集："</span>, set1 & set2)  <span class="comment"># 交集</span>
+<span class="function">print</span>(<span class="string">"差集："</span>, set1 - set2)  <span class="comment"># 差集</span>
+<span class="function">print</span>(<span class="string">"对称差集："</span>, set1 ^ set2)  <span class="comment"># 对称差集</span>
 
-<span class="function">print</span>(s1 | s2)  <span class="comment"># 并集 {1, 2, 3, 4, 5}</span>
-<span class="function">print</span>(s1 & s2)  <span class="comment"># 交集 {3}</span>
-<span class="function">print</span>(s1 - s2)  <span class="comment"># 差集 {1, 2}</span>
+<span class="comment"># 集合方法</span>
+set1.add(<span class="keyword">4</span>)       <span class="comment"># 添加元素</span>
+set1.remove(<span class="keyword">1</span>)    <span class="comment"># 删除元素</span>
+set1.discard(<span class="keyword">5</span>)   <span class="comment"># 删除元素（不存在不报错）</span>
+
+<span class="function">print</span>(set1)
+                </div>
+
+                <h3>2.3 数据处理操作</h3>
+                <h4>2.3.1 列表推导式</h4>
+                <p>列表推导式是一种简洁创建列表的方法：</p>
+                <div class="code-block">
+<span class="comment"># 基本列表推导式</span>
+squares = [<span class="keyword">x</span> ** <span class="keyword">2</span> <span class="keyword">for</span> <span class="keyword">x</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="keyword">10</span>)]
+<span class="function">print</span>(squares)
+
+<span class="comment"># 带条件的列表推导式</span>\neven_squares = [<span class="keyword">x</span> ** <span class="keyword">2</span> <span class="keyword">for</span> <span class="keyword">x</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="keyword">10</span>) <span class="keyword">if</span> <span class="keyword">x</span> % <span class="keyword">2</span> == <span class="keyword">0</span>]
+<span class="function">print</span>(even_squares)
+
+<span class="comment"># 嵌套列表推导式</span>
+matrix = [[<span class="keyword">i</span> * <span class="keyword">j</span> <span class="keyword">for</span> <span class="keyword">j</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="keyword">3</span>)] <span class="keyword">for</span> <span class="keyword">i</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="keyword">3</span>)]
+<span class="function">print</span>(matrix)
+                </div>
+
+                <h4>2.3.2 字典推导式</h4>
+                <p>字典推导式是一种简洁创建字典的方法：</p>
+                <div class="code-block">
+<span class="comment"># 基本字典推导式</span>
+square_dict = {<span class="keyword">x</span>: <span class="keyword">x</span> ** <span class="keyword">2</span> <span class="keyword">for</span> <span class="keyword">x</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="keyword">5</span>)}
+<span class="function">print</span>(square_dict)
+
+<span class="comment"># 带条件的字典推导式</span>
+odd_square_dict = {<span class="keyword">x</span>: <span class="keyword">x</span> ** <span class="keyword">2</span> <span class="keyword">for</span> <span class="keyword">x</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="keyword">10</span>) <span class="keyword">if</span> <span class="keyword">x</span> % <span class="keyword">2</span> != <span class="keyword">0</span>}
+<span class="function">print</span>(odd_square_dict)
+                </div>
+
+                <h4>2.3.3 内置函数</h4>
+                <p>Python 提供了许多内置函数用于数据处理：</p>
+                <div class="code-block">
+<span class="comment"># 常用内置函数</span>
+numbers = [<span class="keyword">1</span>, <span class="keyword">5</span>, <span class="keyword">3</span>, <span class="keyword">9</span>, <span class="keyword">2</span>]
+
+<span class="function">print</span>(<span class="string">"总和："</span>, <span class="function">sum</span>(numbers))
+<span class="function">print</span>(<span class="string">"最大值："</span>, <span class="function">max</span>(numbers))
+<span class="function">print</span>(<span class="string">"最小值："</span>, <span class="function">min</span>(numbers))
+<span class="function">print</span>(<span class="string">"长度："</span>, <span class="function">len</span>(numbers))
+<span class="function">print</span>(<span class="string">"排序："</span>, <span class="function">sorted</span>(numbers))
+<span class="function">print</span>(<span class="string">"反转："</span>, <span class="function">reversed</span>(numbers))
+
+<span class="comment"># 转换函数</span>
+<span class="function">print</span>(<span class="string">"转为列表："</span>, <span class="function">list</span>({<span class="keyword">1</span>, <span class="keyword">2</span>, <span class="keyword">3</span>}))
+<span class="function">print</span>(<span class="string">"转为元组："</span>, <span class="function">tuple</span>([<span class="keyword">1</span>, <span class="keyword">2</span>, <span class="keyword">3</span>]))
+<span class="function">print</span>(<span class="string">"转为集合："</span>, <span class="function">set</span>([<span class="keyword">1</span>, <span class="keyword">2</span>, <span class="keyword">2</span>, <span class="keyword">3</span>]))
                 </div>
 
                 <div class="exercise">
-                    <h4>✏️ 练习 3</h4>
-                    <p>创建一个包含 5 个数字的列表，计算它们的平均值，然后将列表转换为集合去除重复元素。</p>
+                    <h4>✏️ 练习 2.1</h4>
+                    <p>创建一个列表，包含 10 个随机整数，然后使用列表推导式创建一个新列表，包含原列表中所有偶数的平方。</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>✏️ 练习 2.2</h4>
+                    <p>创建一个字典存储学生信息，包含姓名、年龄、成绩等字段，然后计算并打印平均成绩。</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>✏️ 练习 2.3</h4>
+                    <p>使用集合去重：创建一个包含重复元素的列表，然后使用集合去除重复元素，再转回列表并排序。</p>
+                </div>
+
+                <h3>2.4 实际应用示例</h3>
+                <div class="scene-card">
+                    <h4>学生成绩管理</h4>
+                    <p>使用字典存储学生信息，包括姓名、各科成绩，然后计算平均分和总分。</p>
+                </div>
+                <div class="scene-card">
+                    <h4>购物车系统</h4>
+                    <p>使用列表存储购物车中的商品，每个商品是一个字典，包含商品名称、价格和数量，然后计算总金额。</p>
+                </div>
+                <div class="scene-card">
+                    <h4>数据统计</h4>
+                    <p>使用集合统计用户输入的唯一单词，使用字典统计单词出现的频率。</p>
+                </div>
+
+                <div class="note">
+                    <strong>💡 提示：</strong> 选择合适的数据结构可以大大提高代码的效率和可读性。列表适合存储有序数据，字典适合存储键值对数据，集合适合存储唯一元素，元组适合存储不可变数据。
                 </div>
             </section>
 
             <section class="chapter" id="functions-modules">
-                <h2>第四章：函数与模块</h2>
+                <h2>第三章：函数与模块</h2>
 
-                <h3>4.1 函数定义与调用</h3>
+                <h3>3.1 函数的定义与调用</h3>
+                <p>函数是一段可重用的代码块，用于执行特定的任务。函数可以接受输入参数，并返回输出结果：</p>
+
                 <div class="code-block">
+<span class="comment"># 定义函数</span>
 <span class="keyword">def</span> <span class="function">greet</span>(name):
-    <span class="keyword">"""问候函数"""
-    <span class="keyword">return</span> <span class="string">f"你好, {name}!"</span>
+    <span class="keyword">return</span> <span class="string">f"Hello, {name}!"</span>
 
-<span class="function">print</span>(<span class="function">greet</span>(<span class="string">"张三"</span>))
+<span class="comment"># 调用函数</span>
+message = greet(<span class="string">"张三"</span>)
+<span class="function">print</span>(message)
+
+<span class="comment"># 无返回值的函数</span>
+<span class="keyword">def</span> <span class="function">say_hello</span>(name):
+    <span class="function">print</span>(<span class="string">f"Hello, {name}!"</span>)
+
+<span class="comment"># 调用无返回值的函数</span>
+say_hello(<span class="string">"李四"</span>)
                 </div>
 
-                <h3>4.2 函数参数</h3>
+                <h3>3.2 函数参数</h3>
+                <h4>3.2.1 位置参数</h4>
+                <p>位置参数是最基本的参数类型，按照参数定义的顺序传递：</p>
                 <div class="code-block">
-<span class="comment"># 带默认参数的函数</span>
-<span class="keyword">def</span> <span class="function">add</span>(a, b=<span class="keyword">0</span>):
+<span class="comment"># 位置参数</span>
+<span class="keyword">def</span> <span class="function">add</span>(a, b):
     <span class="keyword">return</span> a + b
 
-<span class="function">print</span>(<span class="function">add</span>(<span class="keyword">5</span>))      <span class="comment"># 5</span>
-<span class="function">print</span>(<span class="function">add</span>(<span class="keyword">5</span>, <span class="keyword">3</span>))   <span class="comment"># 8</span>
+<span class="function">print</span>(add(<span class="keyword">10</span>, <span class="keyword">20</span>))  <span class="comment"># 按照位置传递参数</span>
+                </div>
 
+                <h4>3.2.2 关键字参数</h4>
+                <p>关键字参数允许通过参数名来传递参数，不需要考虑顺序：</p>
+                <div class="code-block">
 <span class="comment"># 关键字参数</span>
-<span class="function">print</span>(<span class="function">add</span>(b=<span class="keyword">10</span>, a=<span class="keyword">20</span>))  <span class="comment"># 30</span>
+<span class="function">print</span>(add(a=<span class="keyword">10</span>, b=<span class="keyword">20</span>))
+<span class="function">print</span>(add(b=<span class="keyword">20</span>, a=<span class="keyword">10</span>))  <span class="comment"># 顺序可以调换</span>
+                </div>
 
-<span class="comment"># 可变参数</span>
+                <h4>3.2.3 默认参数</h4>
+                <p>默认参数允许为参数设置默认值，当调用函数时不传递该参数时使用默认值：</p>
+                <div class="code-block">
+<span class="comment"># 默认参数</span>
+<span class="keyword">def</span> <span class="function">greet</span>(name, greeting=<span class="string">"Hello"</span>):
+    <span class="keyword">return</span> <span class="string">f"{greeting}, {name}!"</span>
+
+<span class="function">print</span>(greet(<span class="string">"李四"</span>))  <span class="comment"># 使用默认的 greeting</span>
+<span class="function">print</span>(greet(<span class="string">"王五"</span>, greeting=<span class="string">"Hi"</span>))  <span class="comment"># 覆盖默认值</span>
+                </div>
+
+                <h4>3.2.4 可变参数</h4>
+                <p>可变参数允许函数接受任意数量的参数：</p>
+                <div class="code-block">
+<span class="comment"># 可变参数（*args）</span>
 <span class="keyword">def</span> <span class="function">sum_numbers</span>(*args):
     <span class="keyword">return</span> <span class="function">sum</span>(args)
 
-<span class="function">print</span>(<span class="function">sum_numbers</span>(<span class="keyword">1</span>, <span class="keyword">2</span>, <span class="keyword">3</span>, <span class="keyword">4</span>))  <span class="comment"># 10</span>
+<span class="function">print</span>(sum_numbers(<span class="keyword">1</span>, <span class="keyword">2</span>, <span class="keyword">3</span>, <span class="keyword">4</span>))  <span class="comment"># 可以传递任意数量的参数</span>
+
+<span class="comment"># 关键字可变参数（**kwargs）</span>
+<span class="keyword">def</span> <span class="function">print_info</span>(**kwargs):
+    <span class="keyword">for</span> key, value <span class="keyword">in</span> kwargs.items():
+        <span class="function">print</span>(f"{key}: {value}")
+
+print_info(name=<span class="string">"张三"</span>, age=<span class="keyword">25</span>, city=<span class="string">"北京"</span>)
                 </div>
 
-                <h3>4.3 模块</h3>
-                <p>模块是 Python 中组织代码的方式，一个 .py 文件就是一个模块。</p>
+                <h3>3.3 返回值</h3>
+                <h4>3.3.1 返回单个值</h4>
                 <div class="code-block">
-<span class="comment"># 导入模块</span>
+<span class="comment"># 返回单个值</span>
+<span class="keyword">def</span> <span class="function">calculate_area</span>(width, height):
+    <span class="keyword">return</span> width * height
+
+area = calculate_area(<span class="keyword">5</span>, <span class="keyword">10</span>)
+<span class="function">print</span>(<span class="string">"面积："</span>, area)
+                </div>
+
+                <h4>3.3.2 返回多个值</h4>
+                <div class="code-block">
+<span class="comment"># 返回多个值</span>
+<span class="keyword">def</span> <span class="function">get_min_max</span>(numbers):
+    <span class="keyword">return</span> <span class="function">min</span>(numbers), <span class="function">max</span>(numbers)
+
+min_val, max_val = get_min_max([<span class="keyword">1</span>, <span class="keyword">5</span>, <span class="keyword">3</span>, <span class="keyword">9</span>, <span class="keyword">2</span>])
+<span class="function">print</span>(<span class="string">"最小值："</span>, min_val, <span class="string">"最大值："</span>, max_val)
+
+<span class="comment"># 返回值实际上是一个元组</span>
+result = get_min_max([<span class="keyword">10</span>, <span class="keyword">20</span>, <span class="keyword">30</span>])
+<span class="function">print</span>(result)  <span class="comment"># 输出：(10, 30)</span>
+                </div>
+
+                <h3>3.4 模块的导入与使用</h3>
+                <p>模块是一个包含 Python 定义和语句的文件。Python 提供了许多内置模块，也可以创建自定义模块：</p>
+
+                <h4>3.4.1 导入整个模块</h4>
+                <div class="code-block">
+<span class="comment"># 导入整个模块</span>
 <span class="keyword">import</span> math
 
-<span class="function">print</span>(math.pi)          <span class="comment"># 3.141592653589793</span>
-<span class="function">print</span>(math.sqrt(<span class="keyword">16</span>))  <span class="comment"># 4.0</span>
+<span class="function">print</span>(math.pi)  <span class="comment"># 使用模块名访问模块中的属性</span>
+<span class="function">print</span>(math.sqrt(<span class="keyword">16</span>))  <span class="comment"># 使用模块名访问模块中的函数</span>
+                </div>
 
+                <h4>3.4.2 导入模块中的特定函数</h4>
+                <div class="code-block">
 <span class="comment"># 导入模块中的特定函数</span>
 <span class="keyword">from</span> math <span class="keyword">import</span> pi, sqrt
 
-<span class="function">print</span>(pi)       <span class="comment"># 3.141592653589793</span>
-<span class="function">print</span>(<span class="function">sqrt</span>(<span class="keyword">25</span>))  <span class="comment"># 5.0</span>
-
-<span class="comment"># 导入所有函数</span>
-<span class="keyword">from</span> math <span class="keyword">import</span> *
+<span class="function">print</span>(pi)  <span class="comment"># 直接使用函数名</span>
+<span class="function">print</span>(sqrt(<span class="keyword">25</span>))  <span class="comment"># 直接使用函数名</span>
                 </div>
 
-                <h3>4.4 包</h3>
-                <p>包是包含多个模块的目录，必须包含一个 __init__.py 文件。</p>
+                <h4>3.4.3 导入模块并使用别名</h4>
                 <div class="code-block">
-<span class="comment"># 导入包中的模块</span>
-<span class="comment"># import mypackage.mymodule</span>
-<span class="comment"># from mypackage import mymodule</span>
+<span class="comment"># 导入模块并使用别名</span>
+<span class="keyword">import</span> math <span class="keyword">as</span> m
+
+<span class="function">print</span>(m.sin(m.pi/<span class="keyword">2</span>))  <span class="comment"># 使用别名访问</span>
+
+<span class="comment"># 导入特定函数并使用别名</span>
+<span class="keyword">from</span> math <span class="keyword">import</span> pi <span class="keyword">as</span> PI, sqrt <span class="keyword">as</span> square_root
+
+<span class="function">print</span>(PI)
+<span class="function">print</span>(square_root(<span class="keyword">36</span>))
+                </div>
+
+                <h4>3.4.4 导入模块中的所有函数</h4>
+                <div class="code-block">
+<span class="comment"># 导入模块中的所有函数</span>
+<span class="keyword">from</span> math <span class="keyword">import</span> *
+
+<span class="function">print</span>(pi)
+<span class="function">print</span>(sqrt(<span class="keyword">49</span>))
+<span class="function">print</span>(sin(<span class="keyword">0</span>))
+                </div>
+
+                <h3>3.5 创建自定义模块</h3>
+                <p>自定义模块是一个包含 Python 代码的 .py 文件：</p>
+
+                <div class="code-block">
+<span class="comment"># 创建一个名为 utils.py 的文件，包含以下内容：</span>
+<span class="comment"># def calculate_area(width, height):</span>
+<span class="comment">#     return width * height</span>
+<span class="comment"># </span>
+<span class="comment"># def calculate_perimeter(width, height):</span>
+<span class="comment">#     return 2 * (width + height)</span>
+
+<span class="comment"># 导入自定义模块</span>
+<span class="keyword">import</span> utils
+
+<span class="function">print</span>(utils.calculate_area(<span class="keyword">5</span>, <span class="keyword">10</span>))
+<span class="function">print</span>(utils.calculate_perimeter(<span class="keyword">5</span>, <span class="keyword">10</span>))
+                </div>
+
+                <h3>3.6 常用内置模块</h3>
+                <div class="scene-card">
+                    <h4>math 模块</h4>
+                    <p>提供数学相关的函数和常量，如 pi、sqrt、sin、cos 等。</p>
+                </div>
+                <div class="scene-card">
+                    <h4>random 模块</h4>
+                    <p>提供随机数生成功能，如 randint、random、choice 等。</p>
+                </div>
+                <div class="scene-card">
+                    <h4>datetime 模块</h4>
+                    <p>提供日期和时间处理功能，如 datetime、date、time 等。</p>
+                </div>
+                <div class="scene-card">
+                    <h4>os 模块</h4>
+                    <p>提供操作系统相关的功能，如文件操作、目录操作等。</p>
+                </div>
+                <div class="scene-card">
+                    <h4>sys 模块</h4>
+                    <p>提供系统相关的功能，如命令行参数、退出程序等。</p>
+                </div>
+
+                <h3>3.7 函数的高级特性</h3>
+                <h4>3.7.1 嵌套函数</h4>
+                <div class="code-block">
+<span class="comment"># 嵌套函数</span>
+<span class="keyword">def</span> <span class="function">outer_function</span>(x):
+    <span class="keyword">def</span> <span class="function">inner_function</span>(y):
+        <span class="keyword">return</span> y * <span class="keyword">2</span>
+    <span class="keyword">return</span> inner_function(x) + <span class="keyword">1</span>
+
+<span class="function">print</span>(outer_function(<span class="keyword">5</span>))  <span class="comment"># 输出：11</span>
+                </div>
+
+                <h4>3.7.2 递归函数</h4>
+                <div class="code-block">
+<span class="comment"># 递归函数</span>
+<span class="keyword">def</span> <span class="function">factorial</span>(n):
+    <span class="keyword">if</span> n == <span class="keyword">0</span> <span class="keyword">or</span> n == <span class="keyword">1</span>:
+        <span class="keyword">return</span> <span class="keyword">1</span>
+    <span class="keyword">else</span>:
+        <span class="keyword">return</span> n * factorial(n - <span class="keyword">1</span>)
+
+<span class="function">print</span>(factorial(<span class="keyword">5</span>))  <span class="comment"># 输出：120</span>
                 </div>
 
                 <div class="exercise">
-                    <h4>✏️ 练习 4</h4>
-                    <p>创建一个函数 calculate_area，根据传入的形状（'circle' 或 'rectangle'）和相应的参数计算面积。</p>
+                    <h4>✏️ 练习 3.1</h4>
+                    <p>创建一个函数，接受一个列表作为参数，返回列表中所有偶数的和。</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>✏️ 练习 3.2</h4>
+                    <p>创建一个函数，接受一个字符串作为参数，返回该字符串的反转。</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>✏️ 练习 3.3</h4>
+                    <p>创建一个函数，接受一个整数 n 作为参数，使用递归计算斐波那契数列的第 n 项。</p>
+                </div>
+
+                <h3>3.8 实际应用示例</h3>
+                <div class="scene-card">
+                    <h4>计算器函数</h4>
+                    <p>创建一个计算器函数，可以执行加、减、乘、除等操作。</p>
+                </div>
+                <div class="scene-card">
+                    <h4>数据验证函数</h4>
+                    <p>创建一个函数，验证用户输入的邮箱地址是否合法。</p>
+                </div>
+                <div class="scene-card">
+                    <h4>文件处理函数</h4>
+                    <p>创建一个函数，读取文件内容并统计其中的单词数量。</p>
+                </div>
+
+                <div class="note">
+                    <strong>💡 提示：</strong> 函数是代码复用的重要手段，良好的函数设计可以使代码更加模块化、可读性更高。在设计函数时，应该遵循单一职责原则，一个函数只负责一件事情。
                 </div>
             </section>
 
-            <section class="chapter" id="oop">
+            <section class="chapter" id="file-exception">
+                <h2>第四章：文件操作与异常处理</h2>
+
+                <h3>4.1 文件的读取与写入</h3>
+                <p>Python 提供了简单的文件操作接口，使用 <code>open()</code> 函数可以打开文件，然后进行读写操作：</p>
+
+                <h4>4.1.1 文件打开模式</h4>
+                <div class="scene-card">
+                    <h4>常用文件打开模式</h4>
+                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                        <li><code>"r"</code> - 只读模式（默认）</li>
+                        <li><code>"w"</code> - 写入模式（覆盖原有内容）</li>
+                        <li><code>"a"</code> - 追加模式（在文件末尾添加内容）</li>
+                        <li><code>"r+"</code> - 读写模式</li>
+                        <li><code>"w+"</code> - 读写模式（覆盖原有内容）</li>
+                        <li><code>"a+"</code> - 读写模式（在文件末尾添加内容）</li>
+                        <li><code>"b"</code> - 二进制模式（如 <code>"rb"</code>、<code>"wb"</code>）</li>
+                    </ul>
+                </div>
+
+                <h4>4.1.2 读取文件</h4>
+                <div class="code-block">
+<span class="comment"># 读取整个文件</span>
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"data.txt"</span>, <span class="string">"r"</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:
+    content = f.read()
+    <span class="function">print</span>(content)
+
+<span class="comment"># 逐行读取</span>
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"data.txt"</span>, <span class="string">"r"</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:
+    <span class="keyword">for</span> line <span class="keyword">in</span> f:
+        <span class="function">print</span>(line.strip())  <span class="comment"># strip() 去除换行符和空白字符</span>
+
+<span class="comment"># 读取指定字符数</span>
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"data.txt"</span>, <span class="string">"r"</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:
+    content = f.read(<span class="keyword">100</span>)  <span class="comment"># 读取前 100 个字符</span>
+    <span class="function">print</span>(content)
+                </div>
+
+                <h4>4.1.3 写入文件</h4>
+                <div class="code-block">
+<span class="comment"># 写入文件（覆盖原有内容）</span>
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"output.txt"</span>, <span class="string">"w"</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:
+    f.write(<span class="string">"Hello, Python!\n"</span>)
+    f.write(<span class="string">"文件操作示例\n"</span>)
+
+<span class="comment"># 追加内容</span>
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"output.txt"</span>, <span class="string">"a"</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:
+    f.write(<span class="string">"追加的内容\n"</span>)
+
+<span class="comment"># 写入多行</span>
+lines = [<span class="string">"第一行\n"</span>, <span class="string">"第二行\n"</span>, <span class="string">"第三行\n"</span>]
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"multi_lines.txt"</span>, <span class="string">"w"</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:
+    f.writelines(lines)
+                </div>
+
+                <h4>4.1.4 文件指针操作</h4>
+                <div class="code-block">
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"data.txt"</span>, <span class="string">"r+"</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:
+    <span class="function">print</span>(<span class="string">"当前指针位置："</span>, f.tell())  <span class="comment"># 获取当前指针位置</span>
+    
+    content = f.read(<span class="keyword">10</span>)
+    <span class="function">print</span>(<span class="string">"读取的内容："</span>, content)
+    <span class="function">print</span>(<span class="string">"当前指针位置："</span>, f.tell())
+    
+    f.seek(<span class="keyword">0</span>)  <span class="comment"># 移动指针到文件开头</span>
+    <span class="function">print</span>(<span class="string">"移动后指针位置："</span>, f.tell())
+                </div>
+
+                <h3>4.2 异常处理</h3>
+                <p>异常是程序运行过程中出现的错误，如文件不存在、除数为零等。异常处理可以帮助我们捕获和处理这些错误，使程序更加健壮：</p>
+
+                <h4>4.2.1 基本异常处理</h4>
+                <div class="code-block">
+<span class="comment"># 基本异常处理</span>
+<span class="keyword">try</span>:
+    num = <span class="function">int</span>(<span class="function">input</span>(<span class="string">"请输入一个数字："</span>))
+    <span class="function">print</span>(<span class="string">"输入的数字是："</span>, num)
+<span class="keyword">except</span> ValueError:
+    <span class="function">print</span>(<span class="string">"输入错误，请输入有效的数字！"</span>)
+                </div>
+
+                <h4>4.2.2 处理多种异常</h4>
+                <div class="code-block">
+<span class="comment"># 处理多种异常</span>
+<span class="keyword">try</span>:
+    <span class="keyword">with</span> <span class="function">open</span>(<span class="string">"不存在的文件.txt"</span>, <span class="string">"r"</span>) <span class="keyword">as</span> f:
+        content = f.read()
+    result = <span class="keyword">10</span> / <span class="keyword">0</span>
+<span class="keyword">except</span> FileNotFoundError:
+    <span class="function">print</span>(<span class="string">"文件不存在！"</span>)
+<span class="keyword">except</span> ZeroDivisionError:
+    <span class="function">print</span>(<span class="string">"除数不能为零！"</span>)
+<span class="keyword">except</span> Exception <span class="keyword">as</span> e:
+    <span class="function">print</span>(<span class="string">"发生错误："</span>, e)
+                </div>
+
+                <h4>4.2.3 使用 finally 语句</h4>
+                <p><code>finally</code> 语句中的代码无论是否发生异常都会执行，通常用于释放资源：</p>
+                <div class="code-block">
+<span class="comment"># 使用 finally 语句</span>
+<span class="keyword">try</span>:
+    f = <span class="function">open</span>(<span class="string">"data.txt"</span>, <span class="string">"r"</span>)
+    content = f.read()
+    <span class="function">print</span>(content)
+<span class="keyword">except</span> FileNotFoundError:
+    <span class="function">print</span>(<span class="string">"文件不存在！"</span>)
+<span class="keyword">finally</span>:
+    <span class="keyword">if</span> 'f' <span class="keyword">in</span> locals():
+        f.close()  <span class="comment"># 确保文件被关闭</span>
+    <span class="function">print</span>(<span class="string">"无论是否发生异常，都会执行这里的代码"</span>)
+                </div>
+
+                <h4>4.2.4 自定义异常</h4>
+                <p>我们也可以创建自定义异常类来处理特定的错误情况：</p>
+                <div class="code-block">
+<span class="comment"># 自定义异常</span>
+<span class="keyword">class</span> <span class="function">NegativeNumberError</span>(Exception):
+    <span class="keyword">pass</span>
+
+<span class="keyword">def</span> <span class="function">calculate_square_root</span>(num):
+    <span class="keyword">if</span> num < <span class="keyword">0</span>:
+        <span class="keyword">raise</span> NegativeNumberError(<span class="string">"不能计算负数的平方根"</span>)
+    <span class="keyword">import</span> math
+    <span class="keyword">return</span> math.sqrt(num)
+
+<span class="keyword">try</span>:
+    result = calculate_square_root(<span class="keyword">-4</span>)
+    <span class="function">print</span>(result)
+<span class="keyword">except</span> NegativeNumberError <span class="keyword">as</span> e:
+    <span class="function">print</span>(e)
+                </div>
+
+                <h3>4.3 上下文管理器</h3>
+                <p>上下文管理器是一种用于管理资源的机制，它确保资源在使用完毕后被正确释放。Python 中使用 <code>with</code> 语句来使用上下文管理器：</p>
+
+                <h4>4.3.1 使用 with 语句</h4>
+                <div class="code-block">
+<span class="comment"># 使用 with 语句管理文件</span>
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"data.txt"</span>, <span class="string">"r"</span>) <span class="keyword">as</span> f:
+    content = f.read()
+<span class="comment"># 离开 with 块后，文件会自动关闭</span>
+
+<span class="comment"># 多个上下文管理器</span>
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"input.txt"</span>, <span class="string">"r"</span>) <span class="keyword">as</span> f_in, <span class="function">open</span>(<span class="string">"output.txt"</span>, <span class="string">"w"</span>) <span class="keyword">as</span> f_out:
+    content = f_in.read()
+    f_out.write(content)
+                </div>
+
+                <h4>4.3.2 自定义上下文管理器</h4>
+                <p>我们可以通过实现 <code>__enter__</code> 和 <code>__exit__</code> 方法来创建自定义上下文管理器：</p>
+                <div class="code-block">
+<span class="comment"># 自定义上下文管理器</span>
+<span class="keyword">class</span> <span class="function">Timer</span>:
+    <span class="keyword">def</span> <span class="function">__enter__</span>(self):
+        <span class="keyword">import</span> time
+        self.start_time = time.time()
+        <span class="keyword">return</span> self
+    
+    <span class="keyword">def</span> <span class="function">__exit__</span>(self, exc_type, exc_val, exc_tb):
+        <span class="keyword">import</span> time
+        self.end_time = time.time()
+        <span class="function">print</span>(<span class="string">f"执行时间：{self.end_time - self.start_time:.2f} 秒"</span>)
+
+<span class="keyword">with</span> Timer() <span class="keyword">as</span> t:
+    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="keyword">1000000</span>):
+        <span class="keyword">pass</span>
+                </div>
+
+                <h4>4.3.3 使用 contextlib 模块</h4>
+                <p>使用 <code>contextlib</code> 模块可以更方便地创建上下文管理器：</p>
+                <div class="code-block">
+<span class="keyword">from</span> contextlib <span class="keyword">import</span> contextmanager
+
+<span class="keyword">@contextmanager</span>
+<span class="keyword">def</span> <span class="function">timing</span>:
+    <span class="keyword">import</span> time
+    start_time = time.time()
+    <span class="keyword">yield</span>
+    end_time = time.time()
+    <span class="function">print</span>(<span class="string">f"执行时间：{end_time - start_time:.2f} 秒"</span>)
+
+<span class="keyword">with</span> timing():
+    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="keyword">1000000</span>):
+        <span class="keyword">pass</span>
+                </div>
+
+                <div class="exercise">
+                    <h4>✏️ 练习 4.1</h4>
+                    <p>创建一个程序，读取一个文本文件，统计其中的单词数量，并将结果写入到另一个文件中。</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>✏️ 练习 4.2</h4>
+                    <p>创建一个程序，从一个文件中读取数字，计算它们的平均值，并将结果写入到另一个文件中。处理可能出现的异常，如文件不存在、文件中包含非数字内容等。</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>✏️ 练习 4.3</h4>
+                    <p>创建一个自定义上下文管理器，用于测量代码块的执行时间。</p>
+                </div>
+
+                <h3>4.4 实际应用示例</h3>
+                <div class="scene-card">
+                    <h4>文件复制</h4>
+                    <p>创建一个函数，将一个文件的内容复制到另一个文件中。</p>
+                </div>
+                <div class="scene-card">
+                    <h4>日志记录</h4>
+                    <p>创建一个函数，将日志信息追加到日志文件中。</p>
+                </div>
+                <div class="scene-card">
+                    <h4>数据备份</h4>
+                    <p>创建一个函数，将指定目录下的所有文件备份到另一个目录中。</p>
+                </div>
+
+                <div class="note">
+                    <strong>💡 提示：</strong> 在处理文件时，始终使用 <code>with</code> 语句来确保文件被正确关闭，即使发生异常也不例外。这样可以避免资源泄漏和文件锁定问题。
+                </div>
+            </section>
+
+            <section class="chapter" id="object-oriented">
                 <h2>第五章：面向对象编程</h2>
 
-                <h3>5.1 类与对象</h3>
-                <p>类是对象的蓝图，对象是类的实例。</p>
+                <h3>5.1 面向对象编程概述</h3>
+                <p>面向对象编程（Object-Oriented Programming, OOP）是一种编程范式，它将数据和操作数据的方法封装在一起，形成对象。面向对象编程的核心概念包括：</p>
+                <div class="scene-card">
+                    <h4>面向对象编程的核心概念</h4>
+                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                        <li><strong>类（Class）</strong>：对象的蓝图，定义了对象的属性和方法</li>
+                        <li><strong>对象（Object）</strong>：类的实例</li>
+                        <li><strong>属性（Attribute）</strong>：对象的状态</li>
+                        <li><strong>方法（Method）</strong>：对象的行为</li>
+                        <li><strong>封装（Encapsulation）</strong>：将数据和方法包装在一起</li>
+                        <li><strong>继承（Inheritance）</strong>：从现有类创建新类</li>
+                        <li><strong>多态（Polymorphism）</strong>：不同对象对同一方法的不同实现</li>
+                    </ul>
+                </div>
+
+                <h3>5.2 类的定义与使用</h3>
+                <p>类是对象的蓝图，定义了对象的属性和方法：</p>
+
+                <div class="code-block">
+<span class="comment"># 定义类</span>
+<span class="keyword">class</span> <span class="function">Person</span>:
+    <span class="comment"># 类变量</span>
+    species = <span class="string">"Homo sapiens"</span>
+    
+    <span class="comment"># 初始化方法</span>
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, name, age):
+        <span class="comment"># 实例变量</span>
+        self.name = name
+        self.age = age
+    
+    <span class="comment"># 实例方法</span>
+    <span class="keyword">def</span> <span class="function">greet</span>(self):
+        <span class="keyword">return</span> <span class="string">f"Hello, my name is {self.name}, I'm {self.age} years old."</span>
+    
+    <span class="comment"># 实例方法</span>
+    <span class="keyword">def</span> <span class="function">celebrate_birthday</span>(self):
+        self.age += <span class="keyword">1</span>
+        <span class="keyword">return</span> <span class="string">f"Happy birthday! Now I'm {self.age} years old."</span>
+
+<span class="comment"># 创建对象</span>
+person1 = Person(<span class="string">"张三"</span>, <span class="keyword">20</span>)
+person2 = Person(<span class="string">"李四"</span>, <span class="keyword">25</span>)
+
+<span class="comment"># 访问属性</span>
+<span class="function">print</span>(person1.name)
+<span class="function">print</span>(person2.age)
+
+<span class="comment"># 调用方法</span>
+<span class="function">print</span>(person1.greet())
+<span class="function">print</span>(person2.greet())
+<span class="function">print</span>(person1.celebrate_birthday())
+
+<span class="comment"># 访问类变量</span>
+<span class="function">print</span>(Person.species)
+<span class="function">print</span>(person1.species)
+                </div>
+
+                <h3>5.3 继承与多态</h3>
+                <h4>5.3.1 继承</h4>
+                <p>继承允许我们创建基于现有类的新类，新类继承了父类的属性和方法：</p>
+                <div class="code-block">
+<span class="comment"># 基类（父类）</span>
+<span class="keyword">class</span> <span class="function">Animal</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, name):
+        self.name = name
+    
+    <span class="keyword">def</span> <span class="function">make_sound</span>(self):
+        <span class="keyword">return</span> <span class="string">"Some generic sound"</span>
+
+<span class="comment"># 派生类（子类）</span>
+<span class="keyword">class</span> <span class="function">Dog</span>(Animal):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, name, breed):
+        <span class="keyword">super</span>().<span class="function">__init__</span>(name)  <span class="comment"># 调用父类的初始化方法</span>
+        self.breed = breed
+    
+    <span class="keyword">def</span> <span class="function">make_sound</span>(self):
+        <span class="keyword">return</span> <span class="string">"Woof! Woof!"</span>
+
+<span class="keyword">class</span> <span class="function">Cat</span>(Animal):
+    <span class="keyword">def</span> <span class="function">make_sound</span>(self):
+        <span class="keyword">return</span> <span class="string">"Meow! Meow!"</span>
+
+<span class="comment"># 创建对象</span>
+dog = Dog(<span class="string">"Buddy"</span>, <span class="string">"Labrador"</span>)
+cat = Cat(<span class="string">"Kitty"</span>)
+
+<span class="function">print</span>(dog.name, dog.breed)
+<span class="function">print</span>(cat.name)
+<span class="function">print</span>(dog.make_sound())
+<span class="function">print</span>(cat.make_sound())
+                </div>
+
+                <h4>5.3.2 多态</h4>
+                <p>多态允许不同类型的对象对相同的方法调用做出不同的响应：</p>
+                <div class="code-block">
+<span class="comment"># 多态示例</span>
+animals = [
+    Dog(<span class="string">"Buddy"</span>, <span class="string">"Labrador"</span>),
+    Cat(<span class="string">"Kitty"</span>),
+    Animal(<span class="string">"Generic Animal"</span>)
+]
+
+<span class="keyword">for</span> animal <span class="keyword">in</span> animals:
+    <span class="function">print</span>(animal.name, <span class="string">"says:"</span>, animal.make_sound())
+                </div>
+
+                <h3>5.4 封装与属性</h3>
+                <h4>5.4.1 封装</h4>
+                <p>封装是指将数据和方法包装在一起，限制对对象内部状态的直接访问：</p>
+                <div class="code-block">
+<span class="keyword">class</span> <span class="function">BankAccount</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, balance):
+        self._balance = balance  <span class="comment"># 私有属性（约定）</span>
+    
+    <span class="keyword">def</span> <span class="function">deposit</span>(self, amount):
+        <span class="keyword">if</span> amount > <span class="keyword">0</span>:
+            self._balance += amount
+            <span class="keyword">return</span> <span class="string">f"Deposit successful. New balance: {self._balance}"</span>
+        <span class="keyword">else</span>:
+            <span class="keyword">return</span> <span class="string">"Deposit amount must be positive."</span>
+    
+    <span class="keyword">def</span> <span class="function">withdraw</span>(self, amount):
+        <span class="keyword">if</span> <span class="keyword">0</span> < amount <= self._balance:
+            self._balance -= amount
+            <span class="keyword">return</span> <span class="string">f"Withdrawal successful. New balance: {self._balance}"</span>
+        <span class="keyword">else</span>:
+            <span class="keyword">return</span> <span class="string">"Invalid withdrawal amount."</span>
+
+account = BankAccount(<span class="keyword">1000</span>)
+<span class="function">print</span>(account.deposit(<span class="keyword">500</span>))
+<span class="function">print</span>(account.withdraw(<span class="keyword">200</span>))
+<span class="function">print</span>(account._balance)  <span class="comment"># 虽然可以访问，但不推荐</span>
+                </div>
+
+                <h4>5.4.2 属性装饰器</h4>
+                <p>使用 <code>@property</code> 装饰器可以创建属性访问器：</p>
+                <div class="code-block">
+<span class="keyword">class</span> <span class="function">BankAccount</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, balance):
+        self._balance = balance  <span class="comment"># 私有属性（约定）</span>
+    
+    <span class="keyword">def</span> <span class="function">deposit</span>(self, amount):
+        <span class="keyword">if</span> amount > <span class="keyword">0</span>:
+            self._balance += amount
+            <span class="keyword">return</span> <span class="string">f"Deposit successful. New balance: {self._balance}"</span>
+        <span class="keyword">else</span>:
+            <span class="keyword">return</span> <span class="string">"Deposit amount must be positive."</span>
+    
+    <span class="keyword">def</span> <span class="function">withdraw</span>(self, amount):
+        <span class="keyword">if</span> <span class="keyword">0</span> < amount <= self._balance:
+            self._balance -= amount
+            <span class="keyword">return</span> <span class="string">f"Withdrawal successful. New balance: {self._balance}"</span>
+        <span class="keyword">else</span>:
+            <span class="keyword">return</span> <span class="string">"Invalid withdrawal amount."</span>
+    
+    <span class="comment"># 属性访问器（getter）</span>
+    <span class="keyword">@property</span>
+    <span class="keyword">def</span> <span class="function">balance</span>(self):
+        <span class="keyword">return</span> self._balance
+    
+    <span class="comment"># 属性修改器（setter）</span>
+    <span class="keyword">@balance.setter</span>
+    <span class="keyword">def</span> <span class="function">balance</span>(self, value):
+        <span class="keyword">if</span> value >= <span class="keyword">0</span>:
+            self._balance = value
+        <span class="keyword">else</span>:
+            <span class="function">print</span>(<span class="string">"Balance cannot be negative."</span>)
+
+account = BankAccount(<span class="keyword">1000</span>)
+<span class="function">print</span>(<span class="string">"Current balance:"</span>, account.balance)  <span class="comment"># 使用属性访问器</span>
+account.balance = <span class="keyword">1500</span>  <span class="comment"># 使用属性修改器</span>
+<span class="function">print</span>(<span class="string">"Updated balance:"</span>, account.balance)
+                </div>
+
+                <h3>5.5 特殊方法</h3>
+                <p>Python 提供了许多特殊方法，用于自定义对象的行为：</p>
                 <div class="code-block">
 <span class="keyword">class</span> <span class="function">Person</span>:
     <span class="keyword">def</span> <span class="function">__init__</span>(self, name, age):
         self.name = name
         self.age = age
     
-    <span class="keyword">def</span> <span class="function">greet</span>(self):
-        <span class="keyword">return</span> <span class="string">f"你好，我是{self.name}，今年{self.age}岁。"</span>
+    <span class="comment"># 字符串表示</span>
+    <span class="keyword">def</span> <span class="function">__str__</span>(self):
+        <span class="keyword">return</span> <span class="string">f"Person(name={self.name}, age={self.age})"</span>
+    
+    <span class="comment"># 长度</span>
+    <span class="keyword">def</span> <span class="function">__len__</span>(self):
+        <span class="keyword">return</span> self.age
+    
+    <span class="comment"># 加法</span>
+    <span class="keyword">def</span> <span class="function">__add__</span>(self, other):
+        <span class="keyword">return</span> Person(<span class="string">f"{self.name} + {other.name}"</span>, self.age + other.age)
 
-<span class="comment"># 创建对象</span>
-person1 = Person(<span class="string">"张三"</span>, <span class="keyword">25</span>)
-person2 = Person(<span class="string">"李四"</span>, <span class="keyword">30</span>)
+person1 = Person(<span class="string">"张三"</span>, <span class="keyword">20</span>)
+person2 = Person(<span class="string">"李四"</span>, <span class="keyword">25</span>)
 
-<span class="comment"># 访问属性</span>
-<span class="function">print</span>(person1.name)  <span class="comment"># 张三</span>
-
-<span class="comment"># 调用方法</span>
-<span class="function">print</span>(person1.greet())  <span class="comment"># 你好，我是张三，今年25岁。</span>
+<span class="function">print</span>(person1)  <span class="comment"># 调用 __str__ 方法</span>
+<span class="function">print</span>(<span class="string">"年龄："</span>, <span class="function">len</span>(person1))  <span class="comment"># 调用 __len__ 方法</span>
+person3 = person1 + person2  <span class="comment"># 调用 __add__ 方法</span>
+<span class="function">print</span>(person3)
                 </div>
 
-                <h3>5.2 继承</h3>
-                <p>继承允许创建一个新类，继承现有类的属性和方法。</p>
-                <div class="code-block">
-<span class="keyword">class</span> <span class="function">Student</span>(Person):
-    <span class="keyword">def</span> <span class="function">__init__</span>(self, name, age, student_id):
-        <span class="function">super</span>().<span class="function">__init__</span>(name, age)
-        self.student_id = student_id
-    
-    <span class="keyword">def</span> <span class="function">study</span>(self):
-        <span class="keyword">return</span> <span class="string">f"{self.name}正在学习。"</span>
-
-<span class="comment"># 创建学生对象</span>
-student = Student(<span class="string">"王五"</span>, <span class="keyword">18</span>, <span class="string">"S12345"</span>)
-<span class="function">print</span>(student.greet())   <span class="comment"># 继承自Person的方法</span>
-<span class="function">print</span>(student.study())   <span class="comment"># Student自己的方法</span>
+                <h3>5.6 面向对象的实际应用</h3>
+                <div class="scene-card">
+                    <h4>银行账户管理系统</h4>
+                    <p>使用类来建模账户、交易等实体，实现存款、取款、转账等功能。</p>
                 </div>
-
-                <h3>5.3 封装</h3>
-                <p>封装是将数据和方法包装在类中，通过访问控制保护数据。</p>
-                <div class="code-block">
-<span class="keyword">class</span> <span class="function">Account</span>:
-    <span class="keyword">def</span> <span class="function">__init__</span>(self, balance):
-        self.__balance = balance  <span class="comment"># 私有属性</span>
-    
-    <span class="keyword">def</span> <span class="function">deposit</span>(self, amount):
-        <span class="keyword">if</span> amount &gt; <span class="keyword">0</span>:
-            self.__balance += amount
-            <span class="keyword">return</span> <span class="keyword">True</span>
-        <span class="keyword">return</span> <span class="keyword">False</span>
-    
-    <span class="keyword">def</span> <span class="function">get_balance</span>(self):
-        <span class="keyword">return</span> self.__balance
-
-<span class="comment"># 创建账户对象</span>
-account = Account(<span class="keyword">1000</span>)
-account.deposit(<span class="keyword">500</span>)
-<span class="function">print</span>(account.get_balance())  <span class="comment"># 1500</span>
-<span class="comment"># print(account.__balance)  # 错误！私有属性不能直接访问</span>
+                <div class="scene-card">
+                    <h4>图书管理系统</h4>
+                    <p>使用类来建模图书、读者、借阅记录等，实现图书的增删改查功能。</p>
                 </div>
-
-                <h3>5.4 多态</h3>
-                <p>多态允许不同类的对象对相同的方法调用做出不同的响应。</p>
-                <div class="code-block">
-<span class="keyword">class</span> <span class="function">Animal</span>:
-    <span class="keyword">def</span> <span class="function">speak</span>(self):
-        <span class="keyword">pass</span>
-
-<span class="keyword">class</span> <span class="function">Dog</span>(Animal):
-    <span class="keyword">def</span> <span class="function">speak</span>(self):
-        <span class="keyword">return</span> <span class="string">"汪汪！"</span>
-
-<span class="keyword">class</span> <span class="function">Cat</span>(Animal):
-    <span class="keyword">def</span> <span class="function">speak</span>(self):
-        <span class="keyword">return</span> <span class="string">"喵喵！"</span>
-
-<span class="keyword">def</span> <span class="function">make_animal_speak</span>(animal):
-    <span class="function">print</span>(animal.speak())
-
-<span class="comment"># 多态示例</span>
-dog = Dog()
-cat = Cat()
-
-<span class="function">make_animal_speak</span>(dog)  <span class="comment"># 汪汪！</span>
-<span class="function">make_animal_speak</span>(cat)  <span class="comment"># 喵喵！</span>
+                <div class="scene-card">
+                    <h4>游戏开发</h4>
+                    <p>使用类来建模游戏角色、敌人、物品等，实现游戏逻辑。</p>
+                </div>
+                <div class="scene-card">
+                    <h4>图形界面开发</h4>
+                    <p>使用类来建模窗口、按钮、文本框等界面元素。</p>
                 </div>
 
                 <div class="exercise">
-                    <h4>✏️ 练习 5</h4>
-                    <p>创建一个形状类 Shape，然后创建子类 Circle 和 Rectangle，每个子类都有计算面积的方法。</p>
+                    <h4>✏️ 练习 5.1</h4>
+                    <p>创建一个图书管理系统，包含 Book、Library 和 User 类，实现图书的添加、借阅和归还功能。</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>✏️ 练习 5.2</h4>
+                    <p>创建一个学生类 Student，包含姓名、年龄、成绩等属性，以及计算平均成绩的方法。</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>✏️ 练习 5.3</h4>
+                    <p>创建一个形状类 Shape，然后创建继承自 Shape 的 Circle 和 Rectangle 类，实现计算面积的方法。</p>
+                </div>
+
+                <h3>5.7 面向对象编程的优势</h3>
+                <div class="scene-card">
+                    <h4>面向对象编程的好处</h4>
+                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                        <li><strong>代码复用</strong>：通过继承可以重用现有代码</li>
+                        <li><strong>封装性</strong>：保护数据，只暴露必要的接口</li>
+                        <li><strong>可维护性</strong>：代码结构清晰，易于理解和修改</li>
+                        <li><strong>可扩展性</strong>：可以通过继承和多态轻松扩展功能</li>
+                        <li><strong>建模能力</strong>：更好地模拟现实世界的实体和关系</li>
+                    </ul>
+                </div>
+
+                <div class="note">
+                    <strong>💡 提示：</strong> 面向对象编程是一种强大的编程范式，但并不是所有问题都适合用面向对象的方式解决。在选择编程范式时，应该根据问题的性质和复杂性来决定。
                 </div>
             </section>
 
-            <section class="chapter" id="file-exception">
-                <h2>第六章：文件操作与异常处理</h2>
+            <section class="chapter" id="application-scenarios">
+                <h2>第六章：应用场景实践</h2>
 
-                <h3>6.1 文件操作</h3>
-                <h4>6.1.1 读取文件</h4>
+                <h3>6.1 综合应用示例</h3>
+                <p>在本节中，我们将通过几个综合应用示例，将之前学习的知识整合起来，解决实际问题。</p>
+
+                <h4>6.1.1 学生成绩管理系统</h4>
+                <p>创建一个学生成绩管理系统，用于管理学生的基本信息和考试成绩：</p>
                 <div class="code-block">
-<span class="comment"># 读取整个文件</span>
-<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"example.txt"</span>, <span class="string">"r"</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:
-    content = f.read()
-    <span class="function">print</span>(content)
+<span class="keyword">class</span> <span class="function">Student</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, name, student_id):
+        self.name = name
+        self.student_id = student_id
+        self.grades = {}
+    
+    <span class="keyword">def</span> <span class="function">add_grade</span>(self, subject, grade):
+        self.grades[subject] = grade
+    
+    <span class="keyword">def</span> <span class="function">get_average</span>(self):
+        <span class="keyword">if</span> <span class="function">len</span>(self.grades) == <span class="keyword">0</span>:
+            <span class="keyword">return</span> <span class="keyword">0</span>
+        <span class="keyword">return</span> <span class="function">sum</span>(self.grades.values()) / <span class="function">len</span>(self.grades)
+    
+    <span class="keyword">def</span> <span class="function">__str__</span>(self):
+        avg = self.get_average()
+        <span class="keyword">return</span> <span class="string">f"学生：{self.name} (ID: {self.student_id})，平均成绩：{avg:.2f}"</span>
 
-<span class="comment"># 逐行读取</span>
-<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"example.txt"</span>, <span class="string">"r"</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:
-    <span class="keyword">for</span> line <span class="keyword">in</span> f:
-        <span class="function">print</span>(line.strip())
+<span class="keyword">class</span> <span class="function">GradeManager</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self):
+        self.students = {}
+    
+    <span class="keyword">def</span> <span class="function">add_student</span>(self, name, student_id):
+        <span class="keyword">if</span> student_id <span class="keyword">not</span> <span class="keyword">in</span> self.students:
+            self.students[student_id] = Student(name, student_id)
+            <span class="keyword">return</span> <span class="string">f"学生 {name} 添加成功"</span>
+        <span class="keyword">else</span>:
+            <span class="keyword">return</span> <span class="string">"学生 ID 已存在"</span>
+    
+    <span class="keyword">def</span> <span class="function">add_grade</span>(self, student_id, subject, grade):
+        <span class="keyword">if</span> student_id <span class="keyword">in</span> self.students:
+            self.students[student_id].add_grade(subject, grade)
+            <span class="keyword">return</span> <span class="string">f"成绩添加成功"</span>
+        <span class="keyword">else</span>:
+            <span class="keyword">return</span> <span class="string">"学生不存在"</span>
+    
+    <span class="keyword">def</span> <span class="function">get_student</span>(self, student_id):
+        <span class="keyword">if</span> student_id <span class="keyword">in</span> self.students:
+            <span class="keyword">return</span> self.students[student_id]
+        <span class="keyword">else</span>:
+            <span class="keyword">return</span> <span class="string">"学生不存在"</span>
+    
+    <span class="keyword">def</span> <span class="function">get_all_students</span>(self):
+        <span class="keyword">return</span> self.students.values()
+
+<span class="comment"># 使用示例</span>
+manager = GradeManager()
+<span class="function">print</span>(manager.add_student(<span class="string">"张三"</span>, <span class="string">"001"</span>))
+<span class="function">print</span>(manager.add_student(<span class="string">"李四"</span>, <span class="string">"002"</span>))
+
+<span class="function">print</span>(manager.add_grade(<span class="string">"001"</span>, <span class="string">"数学"</span>, <span class="keyword">95</span>))
+<span class="function">print</span>(manager.add_grade(<span class="string">"001"</span>, <span class="string">"英语"</span>, <span class="keyword">88</span>))
+<span class="function">print</span>(manager.add_grade(<span class="string">"002"</span>, <span class="string">"数学"</span>, <span class="keyword">92</span>))
+
+student1 = manager.get_student(<span class="string">"001"</span>)
+<span class="function">print</span>(student1)
+
+student2 = manager.get_student(<span class="string">"002"</span>)
+<span class="function">print</span>(student2)
                 </div>
 
-                <h4>6.1.2 写入文件</h4>
+                <h4>6.1.2 简单的待办事项管理系统</h4>
+                <p>创建一个简单的待办事项管理系统，用于管理个人任务：</p>
                 <div class="code-block">
-<span class="comment"># 写入文件（覆盖）</span>
-<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"example.txt"</span>, <span class="string">"w"</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:
-    f.write(<span class="string">"Hello, Python!\n"</span>)
-    f.write(<span class="string">"这是一个测试文件。\n"</span>)
+<span class="keyword">class</span> <span class="function">Task</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, title, description, due_date):
+        self.title = title
+        self.description = description
+        self.due_date = due_date
+        self.completed = <span class="keyword">False</span>
+    
+    <span class="keyword">def</span> <span class="function">mark_completed</span>(self):
+        self.completed = <span class="keyword">True</span>
+    
+    <span class="keyword">def</span> <span class="function">__str__</span>(self):
+        status = <span class="string">"已完成"</span> <span class="keyword">if</span> self.completed <span class="keyword">else</span> <span class="string">"未完成"</span>
+        <span class="keyword">return</span> <span class="string">f"[{status}] {self.title} - 截止日期: {self.due_date}\n  {self.description}"</span>
 
-<span class="comment"># 追加写入</span>
-<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"example.txt"</span>, <span class="string">"a"</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:
-    f.write(<span class="string">"追加的内容。\n"</span>)
+<span class="keyword">class</span> <span class="function">TodoList</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self):
+        self.tasks = []
+    
+    <span class="keyword">def</span> <span class="function">add_task</span>(self, title, description, due_date):
+        task = Task(title, description, due_date)
+        self.tasks.append(task)
+        <span class="keyword">return</span> <span class="string">f"任务 '{title}' 添加成功"</span>
+    
+    <span class="keyword">def</span> <span class="function">mark_task_completed</span>(self, index):
+        <span class="keyword">if</span> <span class="keyword">0</span> <= index < <span class="function">len</span>(self.tasks):
+            self.tasks[index].mark_completed()
+            <span class="keyword">return</span> <span class="string">"任务标记为已完成"</span>
+        <span class="keyword">else</span>:
+            <span class="keyword">return</span> <span class="string">"任务不存在"</span>
+    
+    <span class="keyword">def</span> <span class="function">list_tasks</span>(self):
+        <span class="keyword">if</span> <span class="function">len</span>(self.tasks) == <span class="keyword">0</span>:
+            <span class="keyword">return</span> <span class="string">"没有待办事项"</span>
+        <span class="keyword">else</span>:
+            result = <span class="string">"待办事项列表：\n"</span>
+            <span class="keyword">for</span> i, task <span class="keyword">in</span> <span class="function">enumerate</span>(self.tasks):
+                result += <span class="string">f"{i+1}. {task}\n\n"</span>
+            <span class="keyword">return</span> result
+
+<span class="comment"># 使用示例</span>
+todo_list = TodoList()
+<span class="function">print</span>(todo_list.add_task(<span class="string">"完成 Python 作业"</span>, <span class="string">"完成第三章的练习"</span>, <span class="string">"2023-12-15"</span>))
+<span class="function">print</span>(todo_list.add_task(<span class="string">"购买 groceries"</span>, <span class="string">"牛奶、鸡蛋、面包"</span>, <span class="string">"2023-12-10"</span>))
+<span class="function">print</span>(todo_list.add_task(<span class="string">"健身"</span>, <span class="string">"去健身房锻炼 1 小时"</span>, <span class="string">"2023-12-09"</span>))
+
+<span class="function">print</span>(todo_list.list_tasks())
+
+<span class="function">print</span>(todo_list.mark_task_completed(<span class="keyword">2</span>))
+<span class="function">print</span>(todo_list.list_tasks())
                 </div>
 
-                <h3>6.2 异常处理</h3>
-                <p>异常处理用于捕获和处理程序运行时的错误。</p>
-                <div class="code-block">
-<span class="keyword">try</span>:
-    <span class="comment"># 可能会出错的代码</span>
-    num = <span class="keyword">int</span>(<span class="function">input</span>(<span class="string">"请输入一个数字："</span>))
-    result = <span class="keyword">10</span> / num
-    <span class="function">print</span>(<span class="string">"结果："</span>, result)
-<span class="keyword">except</span> ValueError:
-    <span class="function">print</span>(<span class="string">"请输入有效的数字！"</span>)
-<span class="keyword">except</span> ZeroDivisionError:
-    <span class="function">print</span>(<span class="string">"除数不能为零！"</span>)
-<span class="keyword">except</span> <span class="keyword">Exception</span> <span class="keyword">as</span> e:
-    <span class="function">print</span>(<span class="string">"发生错误："</span>, e)
-<span class="keyword">finally</span>:
-    <span class="function">print</span>(<span class="string">"程序执行完毕。"</span>)
+                <h3>6.2 实际项目开发流程</h3>
+                <div class="scene-card">
+                    <h4>项目开发的基本流程</h4>
+                    <ol style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                        <li><strong>需求分析</strong>：明确项目的功能和需求</li>
+                        <li><strong>设计</strong>：设计项目的结构和架构</li>
+                        <li><strong>实现</strong>：编写代码实现功能</li>
+                        <li><strong>测试</strong>：测试代码的正确性</li>
+                        <li><strong>部署</strong>：将项目部署到生产环境</li>
+                        <li><strong>维护</strong>：定期更新和维护项目</li>
+                    </ol>
                 </div>
 
-                <h3>6.3 上下文管理器</h3>
-                <p>上下文管理器用于管理资源，确保资源正确释放。</p>
-                <div class="code-block">
-<span class="comment"># 使用 with 语句管理文件资源</span>
-<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"example.txt"</span>, <span class="string">"r"</span>) <span class="keyword">as</span> f:
-    content = f.read()
-<span class="comment"># 文件会自动关闭，即使发生异常</span>
+                <h3>6.3 常见的 Python 应用领域</h3>
+                <div class="scene-card">
+                    <h4>数据科学与人工智能</h4>
+                    <p>使用 NumPy、Pandas、Matplotlib 进行数据处理和可视化，使用 scikit-learn、TensorFlow、PyTorch 进行机器学习和深度学习。</p>
+                </div>
+                <div class="scene-card">
+                    <h4>Web 开发</h4>
+                    <p>使用 Django、Flask、FastAPI 等框架构建网站和 API，使用 SQLAlchemy 进行数据库操作。</p>
+                </div>
+                <div class="scene-card">
+                    <h4>自动化脚本</h4>
+                    <p>使用 Python 编写脚本自动化日常任务，如文件处理、数据抓取、系统管理等。</p>
+                </div>
+                <div class="scene-card">
+                    <h4>游戏开发</h4>
+                    <p>使用 Pygame、Pyglet、PyOpenGL 等库开发游戏，或使用 Unity 配合 Python 开发游戏。</p>
+                </div>
+                <div class="scene-card">
+                    <h4>网络爬虫</h4>
+                    <p>使用 requests、BeautifulSoup、Scrapy 等库抓取和解析网页数据。</p>
+                </div>
+
+                <h3>6.4 学习资源推荐</h3>
+                <div class="scene-card">
+                    <h4>在线学习平台</h4>
+                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                        <li><a href="https://www.codecademy.com/learn/learn-python-3" target="_blank" style="color: #667eea;">Codecademy Python 3 课程</a></li>
+                        <li><a href="https://www.coursera.org/courses?query=python" target="_blank" style="color: #667eea;">Coursera Python 课程</a></li>
+                        <li><a href="https://www.udemy.com/topic/python/" target="_blank" style="color: #667eea;">Udemy Python 课程</a></li>
+                    </ul>
+                </div>
+                <div class="scene-card">
+                    <h4>书籍推荐</h4>
+                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                        <li>《Python 编程：从入门到实践》</li>
+                        <li>《流畅的 Python》</li>
+                        <li>《Python 核心编程》</li>
+                        <li>《Effective Python》</li>
+                    </ul>
+                </div>
+                <div class="scene-card">
+                    <h4>官方文档</h4>
+                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                        <li><a href="https://docs.python.org/3/" target="_blank" style="color: #667eea;">Python 官方文档</a></li>
+                        <li><a href="https://docs.python.org/3/tutorial/" target="_blank" style="color: #667eea;">Python 官方教程</a></li>
+                    </ul>
                 </div>
 
                 <div class="exercise">
-                    <h4>✏️ 练习 6</h4>
-                    <p>创建一个程序，读取一个文件，计算文件中的单词数量，然后将结果写入另一个文件。</p>
+                    <h4>✏️ 练习 6.1</h4>
+                    <p>创建一个简单的计算器应用，支持加、减、乘、除等基本运算，以及括号和优先级处理。</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>✏️ 练习 6.2</h4>
+                    <p>创建一个简单的联系人管理系统，支持添加、删除、修改和查询联系人信息。</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>✏️ 练习 6.3</h4>
+                    <p>创建一个简单的文件管理器，支持文件的复制、移动、重命名和删除等操作。</p>
+                </div>
+
+                <h3>6.5 总结与展望</h3>
+                <p>通过本课程的学习，你已经掌握了 Python 编程的基础知识，包括：</p>
+                <ul style="margin: 1rem 0 1rem 1.5rem;">
+                    <li>Python 的基本语法和数据类型</li>
+                    <li>数据结构（列表、字典、元组、集合）</li>
+                    <li>函数和模块</li>
+                    <li>文件操作和异常处理</li>
+                    <li>面向对象编程</li>
+                    <li>实际应用场景</li>
+                </ul>
+                <p>Python 是一种功能强大、易于学习的编程语言，它在各个领域都有广泛的应用。随着你对 Python 的深入学习，你可以尝试更复杂的项目，如：</p>
+                <ul style="margin: 1rem 0 1rem 1.5rem;">
+                    <li>Web 应用开发</li>
+                    <li>数据科学和机器学习</li>
+                    <li>自动化工具开发</li>
+                    <li>游戏开发</li>
+                    <li>网络爬虫</li>
+                </ul>
+                <p>记住，编程是一项需要实践的技能，不断地编写代码、解决问题是提高编程能力的最佳方式。祝你在 Python 编程的道路上越走越远！</p>
+
+                <div class="note">
+                    <strong>💡 提示：</strong> 学习编程最重要的是坚持和实践。每天花一些时间编写代码，尝试解决实际问题，你的编程能力会不断提高。
                 </div>
             </section>
 
             <div style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 2px solid #eee;">
                 <h3 style="margin-bottom: 1rem; color: #667eea;">🎉 恭喜完成 Python 基础课程！</h3>
-                <p style="margin-bottom: 1.5rem; color: #666;">你已经掌握了 Python 编程的核心基础知识，包括：</p>
+                <p style="margin-bottom: 1.5rem; color: #666;">你已经通过实际应用场景学习了 Python 编程的核心基础知识，包括：</p>
                 <ul style="text-align: left; max-width: 600px; margin: 0 auto 1.5rem; color: #666;">
-                    <li>编程语法基础</li>
-                    <li>数据结构（列表、元组、字典、集合）</li>
-                    <li>函数与模块</li>
-                    <li>面向对象编程</li>
-                    <li>文件操作与异常处理</li>
+                    <li>数据处理场景</li>
+                    <li>Web 开发场景</li>
+                    <li>自动化脚本场景</li>
+                    <li>数据分析场景</li>
+                    <li>面向对象应用场景</li>
                 </ul>
-                <p style="margin-bottom: 1.5rem; color: #666;">现在你可以开始编写简单的 Python 程序，解决实际问题了！</p>
+                <p style="margin-bottom: 1.5rem; color: #666;">现在你可以根据具体的应用场景，灵活运用 Python 来解决实际问题了！</p>
                 <a href="index.html" class="btn">返回首页</a>
             </div>
         </main>
@@ -810,6 +1921,7 @@ cat = Cat()
         <p>&copy; 2025 在线学习平台. 保留所有权利.</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
     <script>
         document.querySelectorAll('.chapter-list a').forEach(link => {
             link.addEventListener('click', function(e) {
@@ -850,6 +1962,249 @@ cat = Cat()
             document.querySelector('.progress-fill').style.width = progress + '%';
             document.querySelector('.progress-bar + p').textContent = Math.round(progress) + '% 完成';
         }
+
+        // 初始化Pyodide
+        let pyodide;
+        async function initPyodide() {
+            try {
+                pyodide = await loadPyodide();
+                console.log('Pyodide 初始化成功');
+            } catch (error) {
+                console.error('Pyodide 初始化失败:', error);
+            }
+        }
+
+        // 代码编辑器功能
+        function initCodeEditors() {
+            // 为每个代码块创建编辑器
+            const codeBlocks = document.querySelectorAll('.code-block');
+            codeBlocks.forEach((block, index) => {
+                const code = block.textContent.trim();
+                const container = document.createElement('div');
+                container.className = 'code-editor-container';
+                container.style.position = 'relative';
+                
+                const header = document.createElement('div');
+                header.className = 'code-editor-header';
+                
+                const title = document.createElement('h5');
+                title.textContent = `代码编辑器 ${index + 1}`;
+                
+                const actions = document.createElement('div');
+                actions.className = 'code-editor-actions';
+                
+                const runBtn = document.createElement('button');
+                runBtn.className = 'code-run-btn';
+                runBtn.textContent = '运行';
+                runBtn.style.backgroundColor = '#4caf50';
+                runBtn.style.color = 'white';
+                runBtn.style.border = 'none';
+                runBtn.style.padding = '0.3rem 0.8rem';
+                runBtn.style.borderRadius = '4px';
+                runBtn.style.fontSize = '0.75rem';
+                runBtn.style.fontWeight = 'bold';
+                runBtn.style.cursor = 'pointer';
+                runBtn.style.transition = 'all 0.2s';
+                runBtn.style.boxShadow = '0 2px 4px rgba(0,0,0,0.2)';
+                
+                runBtn.addEventListener('mouseover', () => {
+                    runBtn.style.backgroundColor = '#45a049';
+                    runBtn.style.boxShadow = '0 3px 6px rgba(0,0,0,0.3)';
+                });
+                
+                runBtn.addEventListener('mouseout', () => {
+                    runBtn.style.backgroundColor = '#4caf50';
+                    runBtn.style.boxShadow = '0 2px 4px rgba(0,0,0,0.2)';
+                });
+                
+                runBtn.addEventListener('mousedown', () => {
+                    runBtn.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.3)';
+                });
+                
+                runBtn.addEventListener('mouseup', () => {
+                    runBtn.style.boxShadow = '0 2px 4px rgba(0,0,0,0.2)';
+                });
+                
+                const resetBtn = document.createElement('button');
+                resetBtn.className = 'code-reset-btn';
+                resetBtn.textContent = '重置';
+                resetBtn.style.marginLeft = '0.5rem';
+                resetBtn.style.backgroundColor = '#2196f3';
+                resetBtn.style.color = 'white';
+                resetBtn.style.border = 'none';
+                resetBtn.style.padding = '0.3rem 0.8rem';
+                resetBtn.style.borderRadius = '4px';
+                resetBtn.style.fontSize = '0.75rem';
+                resetBtn.style.fontWeight = 'bold';
+                resetBtn.style.cursor = 'pointer';
+                resetBtn.style.transition = 'all 0.2s';
+                resetBtn.style.boxShadow = '0 2px 4px rgba(0,0,0,0.2)';
+                
+                resetBtn.addEventListener('mouseover', () => {
+                    resetBtn.style.backgroundColor = '#1976d2';
+                    resetBtn.style.boxShadow = '0 3px 6px rgba(0,0,0,0.3)';
+                });
+                
+                resetBtn.addEventListener('mouseout', () => {
+                    resetBtn.style.backgroundColor = '#2196f3';
+                    resetBtn.style.boxShadow = '0 2px 4px rgba(0,0,0,0.2)';
+                });
+                
+                resetBtn.addEventListener('mousedown', () => {
+                    resetBtn.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.3)';
+                });
+                
+                resetBtn.addEventListener('mouseup', () => {
+                    resetBtn.style.boxShadow = '0 2px 4px rgba(0,0,0,0.2)';
+                });
+                
+                const collapseBtn = document.createElement('button');
+                collapseBtn.className = 'code-collapse-btn';
+                collapseBtn.innerHTML = '▼';
+                collapseBtn.style.marginLeft = '0.5rem';
+                collapseBtn.style.backgroundColor = 'transparent';
+                collapseBtn.style.color = '#666';
+                collapseBtn.style.border = '1px solid #ddd';
+                collapseBtn.style.padding = '0.2rem 0.3rem';
+                collapseBtn.style.borderRadius = '3px';
+                collapseBtn.style.fontSize = '0.6rem';
+                collapseBtn.style.width = '22px';
+                collapseBtn.style.height = '22px';
+                collapseBtn.style.textAlign = 'center';
+                collapseBtn.style.cursor = 'pointer';
+                collapseBtn.style.transition = 'all 0.2s';
+                
+                collapseBtn.addEventListener('mouseover', () => {
+                    collapseBtn.style.backgroundColor = '#f0f0f0';
+                });
+                
+                collapseBtn.addEventListener('mouseout', () => {
+                    collapseBtn.style.backgroundColor = 'transparent';
+                });
+                
+                const floatBtn = document.createElement('button');
+                floatBtn.className = 'code-float-btn';
+                floatBtn.textContent = '悬浮';
+                floatBtn.style.marginLeft = '0.5rem';
+                floatBtn.style.backgroundColor = '#f5f5f5';
+                floatBtn.style.color = '#666';
+                floatBtn.style.border = '1px solid #ddd';
+                floatBtn.style.padding = '0.3rem 0.6rem';
+                floatBtn.style.borderRadius = '4px';
+                floatBtn.style.fontSize = '0.75rem';
+                floatBtn.style.cursor = 'pointer';
+                floatBtn.style.transition = 'all 0.2s';
+                
+                floatBtn.addEventListener('mouseover', () => {
+                    floatBtn.style.backgroundColor = '#e8e8e8';
+                });
+                
+                floatBtn.addEventListener('mouseout', () => {
+                    floatBtn.style.backgroundColor = '#f5f5f5';
+                });
+                
+                actions.appendChild(runBtn);
+                actions.appendChild(resetBtn);
+                actions.appendChild(collapseBtn);
+                actions.appendChild(floatBtn);
+                header.appendChild(title);
+                header.appendChild(actions);
+                
+                const editor = document.createElement('textarea');
+                editor.className = 'code-editor';
+                editor.textContent = code;
+                
+                const output = document.createElement('div');
+                output.className = 'code-output';
+                output.textContent = '运行结果将显示在这里...';
+                
+                container.appendChild(header);
+                container.appendChild(editor);
+                container.appendChild(output);
+                
+                // 存储原始代码
+                const originalCode = code;
+                
+                // 替换原代码块
+                block.parentNode.replaceChild(container, block);
+                
+                // 运行按钮点击事件
+                runBtn.addEventListener('click', () => {
+                    runPythonCode(editor.value, output);
+                });
+                
+                // 重置按钮点击事件
+                resetBtn.addEventListener('click', () => {
+                    editor.value = originalCode;
+                    output.textContent = '运行结果将显示在这里...';
+                    output.className = 'code-output';
+                });
+                
+                // 折叠按钮点击事件
+                collapseBtn.addEventListener('click', () => {
+                    if (editor.style.display === 'none') {
+                        editor.style.display = 'block';
+                        output.style.display = 'block';
+                        collapseBtn.innerHTML = '▼';
+                    } else {
+                        editor.style.display = 'none';
+                        output.style.display = 'none';
+                        collapseBtn.innerHTML = '▶';
+                    }
+                });
+                
+                // 悬浮按钮点击事件
+                floatBtn.addEventListener('click', () => {
+                    if (container.style.position === 'fixed') {
+                        container.style.position = 'relative';
+                        container.style.zIndex = '1';
+                        container.style.width = '100%';
+                        container.style.maxWidth = 'none';
+                        container.style.top = 'auto';
+                        container.style.right = 'auto';
+                        floatBtn.textContent = '悬浮';
+                    } else {
+                        container.style.position = 'fixed';
+                        container.style.zIndex = '1000';
+                        container.style.width = '500px';
+                        container.style.maxWidth = '90vw';
+                        container.style.top = '100px';
+                        container.style.right = '20px';
+                        floatBtn.textContent = '取消悬浮';
+                    }
+                });
+            });
+        }
+
+        // 运行Python代码
+        async function runPythonCode(code, outputElement) {
+            try {
+                if (!pyodide) {
+                    await initPyodide();
+                }
+                
+                // 重定向标准输出
+                let output = '';
+                pyodide.setStdout({ write: (text) => { output += text; } });
+                pyodide.setStderr({ write: (text) => { output += text; } });
+                
+                // 执行代码
+                await pyodide.runPythonAsync(code);
+                
+                // 显示结果
+                outputElement.textContent = output || '代码执行完成';
+                outputElement.className = 'code-output';
+            } catch (error) {
+                outputElement.textContent = `错误: ${error.message}`;
+                outputElement.className = 'code-output error';
+            }
+        }
+
+        // 页面加载完成后初始化
+        window.addEventListener('DOMContentLoaded', async () => {
+            await initPyodide();
+            initCodeEditors();
+        });
     </script>
 </body>
 </html>
